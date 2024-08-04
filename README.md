@@ -1,11 +1,9 @@
 <div align="center">
   <h2> 🚲 Bike Rent Reborn 🚲 </h2>
-  <img src="" width="200">
+  <img src="https://github.com/Maracujacake/brr/blob/main/imagens/brr_logo2-removebg-preview.png" width="200">
   <p> O sistema de locação de bicicletas melhorado em todos os aspectos.</p>
   <p> Go Brr! 📈 </p>
 </div>
-
-<img src="https://img.shields.io/badge/any_text-you_like-blue">
 
 ### Sobre
 - O sistema apresentado neste repositório oferece todas as funções do seu <a href="https://github.com/Maracujacake/bike-rent-system"> antecessor</a> e muito mais.
