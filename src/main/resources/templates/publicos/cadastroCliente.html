@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Cliente - Bike Rent System</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .apresentacao:hover h1,
+        .apresentacao:hover a {
+            color: #facc15;
+            transition: 1s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="bg-gradient-to-r from-blue-500 to-blue-900 p-4 flex items-center justify-between">
+        <div class="text-white text-2xl font-semibold">
+            <!-- Logo Space -->
+            <span>Logo</span>
+        </div>
+        <div class="flex-grow"></div>
+        <div class="flex space-x-4">
+            <!-- Navbar Buttons -->
+            <a href="#" class="text-white hover:text-yellow-300">Cliente</a>
+            <a href="#" class="text-white hover:text-yellow-300">Locadora</a>
+            <a href="#" class="text-white hover:text-yellow-300">Administrador</a>
+            <a href="#" class="text-white hover:text-yellow-300">Sobre</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="bg-cover bg-center min-h-screen" style="background-image: url('/imagens/background_index.jpg');">
+        <section class="flex items-center justify-center h-full p-8 transition duration-300 ease-in-out">
+            <!-- Cadastro Form Section -->
+            <div class="flex flex-col max-w-lg bg-white bg-opacity-70 p-8 rounded-lg transition duration-300 ease-in-out">
+                <h1 class="text-4xl font-bold text-blue-900 mb-6">Cadastro de Cliente</h1>
+                <form action="/cadastro" method="post" class="flex flex-col space-y-4">
+                    <div>
+                        <label for="nome" class="block text-lg font-semibold text-black">Nome</label>
+                        <input type="text" id="nome" name="nome" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-lg font-semibold text-black">Email</label>
+                        <input type="email" id="email" name="email" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label for="senha" class="block text-lg font-semibold text-black">Senha</label>
+                        <input type="password" id="senha" name="senha" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label for="telefone" class="block text-lg font-semibold text-black">Telefone</label>
+                        <input type="text" id="telefone" name="telefone" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label for="cpf" class="block text-lg font-semibold text-black">CPF</label>
+                        <input type="text" id="cpf" name="cpf" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label for="sexo" class="block text-lg font-semibold text-black">Sexo</label>
+                        <input type="text" id="sexo" name="sexo" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label for="DataNascimento" class="block text-lg font-semibold text-black">Data de Nascimento</label>
+                        <input type="date" id="DataNascimento" name="DataNascimento" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <button type="submit" class="bg-blue-900 text-white font-semibold py-2 rounded-md hover:bg-yellow-400 transition duration-300 ease-in-out">Cadastrar</button>
+                </form>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
