@@ -10,6 +10,7 @@ import web.brr.domains.Locadora;
 
 @Repository
 public interface LocadoraRep extends JpaRepository<Locadora, Long> {
+    @SuppressWarnings("unchecked")
     Locadora save(Locadora locadora);
 
     void deleteById(Long id);

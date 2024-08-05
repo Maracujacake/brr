@@ -8,17 +8,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import web.brr.domains.Cliente;
 import web.brr.repositories.ClienteRep;
+import web.brr.repositories.LocadoraRep;
 
 @Controller
 public class HomeController {
-    
+
     @Autowired
     private ClienteRep clienteRep;
 
-    @GetMapping("/")
-    public String index() {
-        return "index";
-    }
+    @Autowired
+    private LocadoraRep locadoraRep;
+
+    // @GetMapping("/")
+    // public String index() {
+    // return "index";
+    // }
 
     @GetMapping("/publicos/cadastro")
     public String showCadastro(Model model) {
@@ -32,5 +36,14 @@ public class HomeController {
         clienteRep.save(cliente);
         return "index";
     }
-}
 
+    @GetMapping("/")
+    public String testBD(Model model) {
+
+        model.addAttribute("clientes", clienteRep.findAll());
+        model.addAttribute("loc", locadoraRep.findAll());
+
+        return "publicos/testeBD";
+    }
+
+}
