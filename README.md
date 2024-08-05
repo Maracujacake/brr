@@ -82,4 +82,5 @@
 </table>
 
 
+
 O projeto foi realizado para conclusão do trabalho da disciplina de *Desenvolvimento de Software para Web 1* (DSW1) da UFSCar no período 2024/1 
