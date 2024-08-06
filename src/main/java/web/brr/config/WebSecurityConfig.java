@@ -52,6 +52,7 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin((form) -> form
                         .loginPage("/login")
+                        .defaultSuccessUrl("/cliente/", true)
                         .permitAll())
                 .logout((logout) -> logout
                         .logoutSuccessUrl("/").permitAll());

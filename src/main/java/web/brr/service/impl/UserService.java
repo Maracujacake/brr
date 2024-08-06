@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import web.brr.domains.User;
+import web.brr.encrypt.EncryptPassword;
 import web.brr.repositories.UserRep;
 import web.brr.service.spec.UserServiceSpec;
 
@@ -16,6 +17,7 @@ public class UserService implements UserServiceSpec {
     UserRep dao;
 
     public User save(User user) {
+        user.setSenha(EncryptPassword.encrypt(user.getSenha()));
         return dao.save(user);
     }
 
