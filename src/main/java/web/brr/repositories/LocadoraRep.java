@@ -10,11 +10,18 @@ import web.brr.domains.Locadora;
 
 @Repository
 public interface LocadoraRep extends JpaRepository<Locadora, Long> {
+    @SuppressWarnings("unchecked")
     Locadora save(Locadora locadora);
+
     void deleteById(Long id);
+
     List<Locadora> findAll();
+
     Optional<Locadora> findById(Long id);
-    Locadora findByEmail(String email); 
-    Locadora findByCnpj(String cnpj);
-    Locadora findByCidade(String cidade); 
+
+    Optional<Locadora> findByEmail(String email);
+
+    Optional<Locadora> findByCnpj(String cnpj);
+
+    Optional<Locadora> findByCidade(String cidade);
 }
