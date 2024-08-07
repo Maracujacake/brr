@@ -25,7 +25,6 @@ public class PublicController {
     @PostMapping("/cliente/cadastrar")
     public String saveCliente(Cliente cliente) {
         System.out.println(cliente.getNome());
-        cliente.setRole("CLIENTE");
 
         userService.save(cliente);
         return "index";
