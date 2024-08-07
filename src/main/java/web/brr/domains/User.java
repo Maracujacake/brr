@@ -21,7 +21,7 @@ public abstract class User {
     @Column(nullable = false, length = 100)
     private String nome;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String senha;
 
     @Column(nullable = false, unique = true, length = 100)
