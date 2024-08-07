@@ -18,8 +18,6 @@ public class UserService implements UserServiceSpec {
 
     public User save(User user) {
         user.setSenha(EncryptPassword.encrypt(user.getSenha()));
-        user.setRole("ROLE_CLIENTE");
-
         return dao.save(user);
     }
 

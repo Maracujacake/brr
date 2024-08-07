@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import web.brr.domains.Cliente;
-import web.brr.service.impl.UserService;
+import web.brr.service.impl.ClienteService;
 
 @Controller
 @RequestMapping("/publicos")
 public class PublicController {
-    @Autowired
-    private UserService userService;
 
+    @Autowired
+    private ClienteService clienteService;
     @GetMapping("/cadastro")
     public String showCadastro(Model model) {
         model.addAttribute("cliente", new Cliente());
@@ -25,8 +25,7 @@ public class PublicController {
     @PostMapping("/cliente/cadastrar")
     public String saveCliente(Cliente cliente) {
         System.out.println(cliente.getNome());
-
-        userService.save(cliente);
+        clienteService.save(cliente);
         return "index";
     }
 }
