@@ -16,7 +16,7 @@ public class PublicController {
 
     @Autowired
     private ClienteService clienteService;
-    @GetMapping("/cadastro")
+    @GetMapping("/cliente/cadastro")
     public String showCadastro(Model model) {
         model.addAttribute("cliente", new Cliente());
         return "publicos/cadastroCliente";
@@ -25,7 +25,10 @@ public class PublicController {
     @PostMapping("/cliente/cadastrar")
     public String saveCliente(Cliente cliente) {
         System.out.println(cliente.getNome());
-        clienteService.save(cliente);
+        Cliente cli = clienteService.save(cliente);
+        if(cli == null){
+            return "redirect:/publicos/cliente/cadastro?error";
+        }
         return "index";
     }
 }

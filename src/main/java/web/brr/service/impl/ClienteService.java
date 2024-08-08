@@ -17,6 +17,10 @@ public class ClienteService implements ClienteServiceSpec {
     ClienteRep dao;
 
     public Cliente save(Cliente Cliente) {
+        Optional<web.brr.domains.Cliente> nome = dao.findByEmailOrCpfOrTelefone(Cliente.getEmail(), Cliente.getCpf(), Cliente.getTelefone());
+        if(nome.isPresent()){
+            return null;
+        }
         Cliente.setSenha(EncryptPassword.encrypt(Cliente.getSenha()));
         Cliente.setRole("ROLE_CLIENTE");
         return dao.save(Cliente);
