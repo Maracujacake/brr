@@ -21,8 +21,8 @@ import web.brr.domains.Cliente;
 import web.brr.domains.Locacao;
 import web.brr.domains.Locadora;
 import web.brr.domains.User;
-import web.brr.repositories.LocacaoRep;
 import web.brr.service.impl.ClienteService;
+import web.brr.service.impl.LocacaoService;
 import web.brr.service.impl.LocadoraService;
 
 @Controller
@@ -36,7 +36,7 @@ public class ClientController {
     private LocadoraService locadoraService;
 
     @Autowired 
-    private LocacaoRep locacaoService;
+    private LocacaoService locacaoService;
 
     @GetMapping("/")
     public String loginPage(Model model) {
@@ -69,12 +69,12 @@ public class ClientController {
     @GetMapping("/registrar")
     public String registrarLocacao(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Cliente logged = null;
+        // Cliente logged = null;
         if (authentication != null && authentication.isAuthenticated()
                 && authentication.getPrincipal() instanceof UserDetails) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             User user = clienteService.findByEmail(userDetails.getUsername()).orElse(null);
-            logged =(Cliente) user;
+            //logged =(Cliente) user;
             model.addAttribute("currentUser", user);
         }  
 
@@ -99,7 +99,7 @@ public class ClientController {
         if(logged == null) throw new RuntimeException("Usuário não encontrado");
         Optional<Locadora> locadora = locadoraService.findById(locadoraId);
         if(!locadora.isPresent()) throw new RuntimeException("Locadora não encontrada");
-        
+
         // TODO : LOGICA PARA CHECAR LOCACAO
         Locacao locacao = new Locacao();
         locacao.setCliente(logged);
