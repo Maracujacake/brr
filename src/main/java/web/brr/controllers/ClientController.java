@@ -18,16 +18,30 @@ public class ClientController {
 
     @Autowired
     private ClienteService clienteService;
-    
+
     @GetMapping("/")
     public String loginPage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails) {
+        if (authentication != null && authentication.isAuthenticated()
+                && authentication.getPrincipal() instanceof UserDetails) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             User user = clienteService.findByEmail(userDetails.getUsername()).orElse(null);
             model.addAttribute("currentUser", user);
         }
         return "clientePage/index";
+    }
+
+    @GetMapping("/locacao")
+    public String getLocacoes(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()
+                && authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            User user = clienteService.findByEmail(userDetails.getUsername()).orElse(null);
+            model.addAttribute("currentUser", user);
+        }
+
+        return "clientePage/locacao";
     }
 
 }

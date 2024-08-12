@@ -17,11 +17,11 @@ public class Locacao {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    Cliente student;
+    Cliente cliente;
 
     @ManyToOne
     @JoinColumn(name = "locadora_id")
-    Locadora course;
+    Locadora locadora;
 
     LocalDateTime registeredAt;
 
@@ -34,19 +34,19 @@ public class Locacao {
     }
 
     public Cliente getCliente() {
-        return student;
+        return cliente;
     }
 
-    public void setCliente(Cliente student) {
-        this.student = student;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public Locadora getLocadora() {
-        return course;
+        return locadora;
     }
 
-    public void setLocadora(Locadora course) {
-        this.course = course;
+    public void setLocadora(Locadora locadora) {
+        this.locadora = locadora;
     }
 
     public LocalDateTime getRegisteredAt() {

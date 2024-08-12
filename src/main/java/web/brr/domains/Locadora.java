@@ -1,10 +1,13 @@
 package web.brr.domains;
 
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,6 +23,17 @@ public class Locadora extends User {
 
     @Column(nullable = false, unique = true, length = 100)
     private String cnpj;
+
+    @OneToMany(mappedBy = "locadora")
+    Set<Locacao> registrations;
+
+    public Set<Locacao> getRegistrations() {
+        return registrations;
+    }
+
+    public void setRegistrations(Set<Locacao> registrations) {
+        this.registrations = registrations;
+    }
 
     // Getters and Setters
     public Long getId() {
