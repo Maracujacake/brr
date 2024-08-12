@@ -14,38 +14,40 @@ import web.brr.service.spec.ClienteServiceSpec;
 @Service
 public class ClienteService implements ClienteServiceSpec {
     @Autowired
-    ClienteRep dao;
+    ClienteRep clienteDAO;
 
     public Cliente save(Cliente Cliente) {
-        Optional<web.brr.domains.Cliente> nome = dao.findByEmailOrCpfOrTelefone(Cliente.getEmail(), Cliente.getCpf(), Cliente.getTelefone());
-        if(nome.isPresent()){
+        Optional<web.brr.domains.Cliente> nome = clienteDAO.findByEmailOrCpfOrTelefone(Cliente.getEmail(),
+                Cliente.getCpf(), Cliente.getTelefone());
+        if (nome.isPresent()) {
             return null;
         }
         Cliente.setSenha(EncryptPassword.encrypt(Cliente.getSenha()));
         Cliente.setRole("ROLE_CLIENTE");
-        return dao.save(Cliente);
+        return clienteDAO.save(Cliente);
     }
 
     public void deleteById(Long id) {
-        dao.deleteById(id);
+        clienteDAO.deleteById(id);
     }
 
     public List<Cliente> findAll() {
-        return dao.findAll();
+        return clienteDAO.findAll();
     }
 
     public Optional<Cliente> findById(Long id) {
-        return dao.findById(id);
+        return clienteDAO.findById(id);
     }
 
     public Optional<Cliente> findByEmail(String email) {
-        return dao.findByEmail(email);
+        return clienteDAO.findByEmail(email);
     }
 
     public Optional<Cliente> findByCpf(String cpf) {
-        return dao.findByCpf(cpf);
+        return clienteDAO.findByCpf(cpf);
     }
+
     public Optional<Cliente> findByTelefone(String telefone) {
-        return dao.findByTelefone(telefone);
+        return clienteDAO.findByTelefone(telefone);
     }
 }

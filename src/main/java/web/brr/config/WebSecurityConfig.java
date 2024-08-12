@@ -1,5 +1,6 @@
 package web.brr.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -16,6 +17,9 @@ import web.brr.security.UsuarioDetailsService;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
+
+    @Autowired
+    private DefaultSucessLogin customAuthenticationSuccessHandler;
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -48,11 +52,13 @@ public class WebSecurityConfig {
                         .requestMatchers("/css/**", "/imagens/**", "/webjars/**").permitAll()
                         .requestMatchers("/publicos/**", "/").permitAll()
                         .requestMatchers("/cliente/**").hasRole("CLIENTE")
+                        .requestMatchers("/locadora/**").hasRole("LOCADORA")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin((form) -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/cliente/", true)
+                        .successHandler(customAuthenticationSuccessHandler) // Use the custom success handler
                         .permitAll())
                 .logout((logout) -> logout
                         .logoutSuccessUrl("/").permitAll());

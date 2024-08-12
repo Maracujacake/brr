@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import web.brr.domains.Cliente;
 import web.brr.domains.Locadora;
 
 @Repository
@@ -29,5 +28,5 @@ public interface LocadoraRep extends JpaRepository<Locadora, Long> {
     Optional<Locadora> findByCidade(String cidade);
 
     @Query("SELECT loc FROM Locadora loc WHERE loc.email = :email OR loc.cnpj = :cnpj")
-    Optional<Cliente> findByEmailOrCnpj( @Param("email") String email, @Param("cnpj") String cnpj );
+    Optional<Locadora> findByEmailOrCnpj(@Param("email") String email, @Param("cnpj") String cnpj);
 }

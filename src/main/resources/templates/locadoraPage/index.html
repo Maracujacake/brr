@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{cliente.pagina.titulo}"></title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .opcao {
+            background-color: rgba(255, 255, 255, 0.8);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .opcao:hover {
+            background-color: rgba(250, 204, 21, 0.9);
+            transform: scale(1.05);
+        }
+        .opcaoInicio {
+            background-color: rgba(169, 169, 169, 0.8);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .opcaoInicio:hover {
+            background-color: rgba(250, 204, 21, 0.9);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-blue-500 to-blue-900 min-h-screen flex items-center justify-center">
+    <div class="max-w-lg bg-white bg-opacity-70 p-6 rounded-lg shadow-lg text-center">
+        <h1 class="text-3xl font-bold text-blue-900 mb-6" th:text=" 'Bem vindo! Olá, ' +  ${currentUser.nome}">CLiente</h1>
+        <p class="text-lg text-black font-semibold mb-6" th:text="#{cliente.pagina.escolhas}"></p>
+
+        <div class="space-y-4">
+            <a href="#" class="opcao block p-4 rounded-lg text-blue-900 font-semibold text-xl"
+            th:text="#{cliente.pagina.locacoes}"> </a>
+
+            <a href="#" class="opcao block p-4 rounded-lg text-blue-900 font-semibold text-xl"
+            th:text="#{cliente.pagina.dados}">
+            </a>
+            <a href="#" class="opcao block p-4 rounded-lg text-blue-900 font-semibold text-xl"
+            th:text="#{cliente.pagina.locadoras}">
+            </a>
+            <a href="/" class="opcaoInicio block p-4 rounded-lg text-blue-900 font-semibold text-xl"
+            th:text="#{cliente.pagina.voltarInicio}">
+            </a>
+        </div>
+    </div>
+</body>
+</html>
