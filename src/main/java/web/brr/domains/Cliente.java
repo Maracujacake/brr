@@ -10,20 +10,11 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "Cliente")
-public class Cliente {
-    
+public class Cliente extends User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false, length = 100)
-    private String nome;
-
-    @Column(nullable = false, length = 50)
-    private String senha;
-
-    @Column(nullable = false, unique = true, length = 100)
-    private String email;
 
     @Column(nullable = false, unique = true, length = 50)
     private String telefone;
@@ -45,30 +36,6 @@ public class Cliente {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getTelefone() {
