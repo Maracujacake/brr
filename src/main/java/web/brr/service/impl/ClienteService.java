@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import web.brr.domains.Cliente;
+import web.brr.domains.Locacao;
 import web.brr.encrypt.EncryptPassword;
 import web.brr.repositories.ClienteRep;
 import web.brr.service.spec.ClienteServiceSpec;
@@ -34,6 +35,11 @@ public class ClienteService implements ClienteServiceSpec {
     public List<Cliente> findAll() {
         return clienteDAO.findAll();
     }
+
+    public List<Locacao> findRegistrations(String id){
+        return clienteDAO.findRegistrations(id);
+    }
+
 
     public Optional<Cliente> findById(Long id) {
         return clienteDAO.findById(id);

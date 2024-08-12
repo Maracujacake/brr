@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import web.brr.domains.Cliente;
+import web.brr.domains.Locacao;
 
 public interface ClienteServiceSpec {
     Cliente save(Cliente user);
@@ -12,6 +13,8 @@ public interface ClienteServiceSpec {
     void deleteById(Long id);
 
     List<Cliente> findAll();
+
+    List<Locacao> findRegistrations(String id);
 
     Optional<Cliente> findById(Long id);
 

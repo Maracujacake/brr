@@ -5,8 +5,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "Cliente")
@@ -28,6 +30,17 @@ public class Cliente extends User {
 
     @Column(nullable = false)
     private LocalDate dataNascimento;
+
+    @OneToMany(mappedBy = "cliente")
+    Set<Locacao> registrations;
+
+    public Set<Locacao> getRegistrations() {
+        return registrations;
+    }
+
+    public void setRegistrations(Set<Locacao> registrations) {
+        this.registrations = registrations;
+    }
 
     // Getters and Setters
     public Long getId() {

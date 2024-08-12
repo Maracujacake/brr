@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{cliente.pagina.titulo}"></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .opcao {
+            background-color: rgba(255, 255, 255, 0.8);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .opcao:hover {
+            background-color: rgba(250, 204, 21, 0.9);
+            transform: scale(1.05);
+        }
+        .opcaoInicio {
+            background-color: rgba(169, 169, 169, 0.8);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .opcaoInicio:hover {
+            background-color: rgba(250, 204, 21, 0.9);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Registrar Nova Locação</h1>
+        
+        <!-- Form to register a new locação -->
+        <form action="registrar" method="post" class="flex flex-col space-y-4">
+            <div>
+                <!-- Combo box for locadora selection -->
+                <label for="locadoraSelect">Selecionar Locadora:</label>
+                <select id="locadoraSelect" name="locadoraId">
+                    <option value="" disabled selected>Selecione uma locadora</option>
+                    <option th:each="loc : ${locadoras}" th:value="${loc.id}" th:text="${loc.nome}"></option>
+                </select>
+            </div>
+            
+            <div>
+                <!-- Input field for date -->
+                <label for="dateInput">Data de Locação:</label>
+                <input  type="datetime-local" id="dateInput" name="locacaoDate" required />
+            </div>
+            
+            <div>
+                <!-- Submit button -->
+                <button type="submit">Registrar</button>
+            </div>
+            <!-- TODO : Botão para voltar para a pagina de locacoes-->
+        </form>
+    </div>
+</body>
+</html>
