@@ -36,7 +36,7 @@
                         <tr class="bg-gray-100">
                             <th class="border border-gray-300 px-4 py-2">CPF Cliente</th>
                             <th class="border border-gray-300 px-4 py-2">Data</th>
-                            <th class="border border-gray-300 px-4 py-2">Opções</th>
+                            <!--th class="border border-gray-300 px-4 py-2">Opções</th-->
                         </tr>
                     </thead>
                     <tbody>
@@ -45,12 +45,12 @@
                             <td class="border border-gray-300 px-4 py-2" th:text="${loc.cliente.cpf}"></td>
                             <td class="border border-gray-300 px-4 py-2" th:text="${loc.registeredAt}"></td>
                             <!-- TODO: fix links e implementar
-                            <td class="border border-gray-300 px-4 py-2">
-                                <a th:href="@{/locacao/editar(id=${locacao.id})}" 
+                            <td class="border border-gray-300 px-4 py-2"> 
+                                <a th:href="@{/locacao/editar(id=${loc.id})}" 
                                     class="text-blue-500 hover:underline">Update</a>
-                                <a th:href="@{/locacao/deletar(id=${locacao.id})}" 
-                                    class="text-red-500 hover:underline ml-2 delete-link">Delete</a>
+                                <a th:href="@{/locacao/deletar(id=${loc.id})}"class="text-red-500 hover:underline ml-2 delete-link">Delete</a>
                             </td>-->
+                            
                         </tr>
                     </tbody>
                 </table>

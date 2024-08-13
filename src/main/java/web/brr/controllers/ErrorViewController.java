@@ -24,6 +24,10 @@ public class ErrorViewController implements ErrorViewResolver {
 			model.addObject("error", "404.error");
 			model.addObject("message", "404.message");
 			break;
+		case 409:
+			model.addObject("error", "409.error");
+			model.addObject("message", "409.message");
+			break;
 		default:
 			model.addObject("error", "default.error");
 			model.addObject("message", "default.message");

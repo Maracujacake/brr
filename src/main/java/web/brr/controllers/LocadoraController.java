@@ -3,6 +3,7 @@ package web.brr.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.server.ResponseStatusException;
 
 import web.brr.domains.Locacao;
 import web.brr.domains.Locadora;
@@ -70,10 +72,13 @@ public class LocadoraController {
 
     @PostMapping("/perfil")
     public String editarDados(Locadora locadora) {
-        System.out.println(locadora.getCidade());
-        System.out.println(locadora.getCnpj());
-        System.out.println(locadora.getSenha());
         locadora.setRole("ROLE_LOCADORA");
+
+        Locadora loc = locadoraService.findByEmail(locadora.getEmail()).orElse(null);
+        if(loc != null && loc.getId() != locadora.getId()){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Dados Invalidos");
+        }
+
         locadoraService.save(locadora,true);
         return "redirect:/locadora/perfil";
     }

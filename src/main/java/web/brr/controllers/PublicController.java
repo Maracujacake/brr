@@ -3,12 +3,14 @@ package web.brr.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
 import web.brr.domains.Cliente;
 import web.brr.domains.Locadora;
@@ -35,7 +37,7 @@ public class PublicController {
     public String saveCliente(Cliente cliente) {
         Cliente cli = clienteService.save(cliente);
         if (cli == null) {
-            return "redirect:/publicos/cliente/cadastro?error";
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Dados Invalidos");
         }
         return "index";
     }
@@ -79,12 +81,13 @@ public class PublicController {
         model.addAttribute("loc", new Locadora());
         return "publicos/cadastroLocadora";
     }
+    
 
     @PostMapping("/locadora/cadastrar")
     public String saveLocadora(Locadora locadora) {
         Locadora cli = locadoraService.save(locadora,false);
         if (cli == null) {
-            return "redirect:/publicos/locadora/cadastro?error";
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Dados Invalidos");
         }
         return "index";
     }
