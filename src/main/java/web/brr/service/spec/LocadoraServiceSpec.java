@@ -19,7 +19,10 @@ public interface LocadoraServiceSpec {
 
     Optional<Locadora> findByCnpj(String cnpj);
 
-    Optional<Locadora> findByCidade(String cidade);
+    List<Locadora> findByCidade(String cidade);
 
     Optional<Locadora> findByEmailOrCnpj(String email, String cnpj);
+
+    List<Locadora> findByNomeContaining(String nome);
+
 }

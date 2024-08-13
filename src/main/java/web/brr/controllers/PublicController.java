@@ -1,11 +1,14 @@
 package web.brr.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import web.brr.domains.Cliente;
 import web.brr.domains.Locadora;
@@ -30,12 +33,45 @@ public class PublicController {
 
     @PostMapping("/cliente/cadastrar")
     public String saveCliente(Cliente cliente) {
-        System.out.println(cliente.getNome());
         Cliente cli = clienteService.save(cliente);
         if (cli == null) {
             return "redirect:/publicos/cliente/cadastro?error";
         }
         return "index";
+    }
+
+    @GetMapping("/locadora")
+    public String showLocadora(Model model) {
+        List<Locadora> listaLocadora = locadoraService.findAll();
+        model.addAttribute("listaLocadora", listaLocadora);
+
+        return "publicos/listAllLocadora";
+    }
+
+    @GetMapping("/locadora/byName")
+    public String showLocadoraByName() {
+   
+        return "publicos/locadoraByName";
+    }
+
+    @GetMapping("/locadora/LocbyName")
+    public String showLocadoraByName(Model model, @RequestParam("name") String name) {
+        List<Locadora> listaLocadora = locadoraService.findByNomeContaining(name);
+        model.addAttribute("listaLocadora", listaLocadora);
+        return "publicos/listByNameLocadora";
+    }
+    
+    @GetMapping("/locadora/ByCidade")
+    public String showLocadoraByCidade() {
+   
+        return "publicos/locadoraByCidade";
+    }
+
+    @GetMapping("/locadora/LocbyCidade")
+    public String showLocadoraByCidade(Model model, @RequestParam("cidade") String cidade) {
+        List<Locadora> listaLocadora = locadoraService.findByCidade(cidade);
+        model.addAttribute("listaLocadora", listaLocadora);
+        return "publicos/listByCidade";
     }
 
     @GetMapping("/locadora/cadastro")
@@ -46,7 +82,6 @@ public class PublicController {
 
     @PostMapping("/locadora/cadastrar")
     public String saveLocadora(Locadora locadora) {
-        System.out.println(locadora.getNome() + " ----- " + locadora.getCidade() + " -- " + locadora.getEmail());
         Locadora cli = locadoraService.save(locadora);
         if (cli == null) {
             return "redirect:/publicos/locadora/cadastro?error";

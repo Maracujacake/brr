@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Informações da Locadora</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="flex justify-center items-center h-screen">
+        <div class="max-w-4xl w-full p-8 bg-white rounded shadow-lg text-center">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4" th:text="#{locadora.info} + ':'"></h2>
+
+            <!-- Verifica se a listaLocadora não está vazia -->
+            <div th:if="${not #lists.isEmpty(listaLocadora)}">
+                <table class="w-full mx-auto">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="border border-gray-300 px-4 py-2" th:text="#{nome}"></th>
+                            <th class="border border-gray-300 px-4 py-2" th:text="#{cidade}"></th>
+                            <th class="border border-gray-300 px-4 py-2">CNPJ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Itera sobre a listaLocadora -->
+                        <tr th:each="locadora : ${listaLocadora}" class="border-b border-gray-300">
+                            <td class="border border-gray-300 px-4 py-2" th:text="${locadora.nome}"></td>
+                            <td class="border border-gray-300 px-4 py-2" th:text="${locadora.cidade}"></td>
+                            <td class="border border-gray-300 px-4 py-2" th:text="${locadora.cnpj}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Se a listaLocadora estiver vazia -->
+            <div th:if="${#lists.isEmpty(listaLocadora)}">
+                <p th:text="#{locadora.NotFound}"></p>
+            </div>
+
+            <a th:href="@{/publicos/locadora}" class="block px-4 py-2 my-4 rounded bg-blue-500 text-white font-bold hover:bg-blue-600" th:text="#{locadora.returnToListLocadora}"></a>
+
+            <a th:href="@{/}" class="block px-4 py-2 my-4 rounded bg-gray-500 text-white font-bold hover:bg-blue-600">Voltar para a página inicial</a>
+        </div>
+    </div>
+</body>
+</html>
