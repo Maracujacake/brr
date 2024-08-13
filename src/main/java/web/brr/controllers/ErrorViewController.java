@@ -16,6 +16,10 @@ public class ErrorViewController implements ErrorViewResolver {
 		ModelAndView model = new ModelAndView("error");
 		model.addObject("status", status.value());
 		switch (status.value()) {
+		case 400:
+			model.addObject("error", "400.error");
+			model.addObject("CustomMessage", map.get("message").toString().replace("[", "").replace("]", ""));
+			break;
 		case 403:
 			model.addObject("error", "403.error");
 			model.addObject("message", "403.message");
