@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import web.brr.domains.Locacao;
 import web.brr.domains.Locadora;
 import web.brr.encrypt.EncryptPassword;
 import web.brr.repositories.LocadoraRep;
@@ -16,7 +17,8 @@ public class LocadoraService implements LocadoraServiceSpec {
     @Autowired
     private LocadoraRep locadoraRep;
 
-    public Locadora save(Locadora locadora) {
+    public Locadora save(Locadora locadora, Boolean update) {
+        if(update) return locadoraRep.save(locadora);
         Optional<web.brr.domains.Locadora> nome = locadoraRep.findByEmailOrCnpj(locadora.getEmail(),
                 locadora.getCnpj());
         if (nome.isPresent()) {
@@ -59,5 +61,9 @@ public class LocadoraService implements LocadoraServiceSpec {
 
     public Optional<Locadora> findByEmailOrCnpj(String email, String cnpj) {
         return locadoraRep.findByEmailOrCnpj(email, cnpj);
+    }
+
+    public List<Locacao> findRegistrations(String id){
+        return locadoraRep.findRegistrations(id);
     }
 }

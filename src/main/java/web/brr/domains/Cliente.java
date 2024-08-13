@@ -1,5 +1,6 @@
 package web.brr.domains;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,8 +11,11 @@ import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.util.Set;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 @Entity
 @Table(name = "Cliente")
+@DynamicUpdate
 public class Cliente extends User {
 
     @Id
@@ -31,7 +35,7 @@ public class Cliente extends User {
     @Column(nullable = false)
     private LocalDate dataNascimento;
 
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL, orphanRemoval = true)
     Set<Locacao> registrations;
 
     public Set<Locacao> getRegistrations() {

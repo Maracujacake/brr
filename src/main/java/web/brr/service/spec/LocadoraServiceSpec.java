@@ -3,11 +3,12 @@ package web.brr.service.spec;
 import java.util.List;
 import java.util.Optional;
 
+import web.brr.domains.Locacao;
 import web.brr.domains.Locadora;
 
 public interface LocadoraServiceSpec {
 
-    Locadora save(Locadora locadora);
+    Locadora save(Locadora locadora,Boolean update);
 
     void deleteById(Long id);
 
@@ -24,5 +25,7 @@ public interface LocadoraServiceSpec {
     Optional<Locadora> findByEmailOrCnpj(String email, String cnpj);
 
     List<Locadora> findByNomeContaining(String nome);
+
+    List<Locacao> findRegistrations(String id);
 
 }

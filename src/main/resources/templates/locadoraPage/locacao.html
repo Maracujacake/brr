@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title th:text="#{locadora.pagina.titulo}"></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .opcao {
+            background-color: rgba(255, 255, 255, 0.8);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .opcao:hover {
+            background-color: rgba(250, 204, 21, 0.9);
+            transform: scale(1.05);
+        }
+        .opcaoInicio {
+            background-color: rgba(169, 169, 169, 0.8);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .opcaoInicio:hover {
+            background-color: rgba(250, 204, 21, 0.9);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="flex justify-center items-center h-screen">
+        <div class="max-w-4xl w-full p-8 bg-white rounded shadow-lg text-center">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Lista de Locações</h2>
+
+            <!-- Check if listaLocacao is not empty -->
+            <div th:if="${not #lists.isEmpty(locacao)}">
+                <table class="w-full mx-auto">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="border border-gray-300 px-4 py-2">CPF Cliente</th>
+                            <th class="border border-gray-300 px-4 py-2">Data</th>
+                            <!--th class="border border-gray-300 px-4 py-2">Opções</th-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Iterate over listaLocacao -->
+                        <tr th:each="loc : ${locacao}" class="border-b border-gray-300">
+                            <td class="border border-gray-300 px-4 py-2" th:text="${loc.cliente.cpf}"></td>
+                            <td class="border border-gray-300 px-4 py-2" th:text="${loc.registeredAt}"></td>
+                            <!-- TODO: fix links e implementar
+                            <td class="border border-gray-300 px-4 py-2"> 
+                                <a th:href="@{/locacao/editar(id=${loc.id})}" 
+                                    class="text-blue-500 hover:underline">Update</a>
+                                <a th:href="@{/locacao/deletar(id=${loc.id})}"class="text-red-500 hover:underline ml-2 delete-link">Delete</a>
+                            </td>-->
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- If listaLocacao is empty -->
+            <div th:if="${#lists.isEmpty(locacao)}">
+                <p>Nenhum locação encontrado.</p>
+            </div>
+
+            <hr class="my-4">
+            
+            <div class="flex justify-around">
+                <!-- TODO: fix links
+                <a th:href="@{/}" class="text-gray-500 hover:underline">Voltar à página inicial</a>
+                <a th:href="@{/locacao/buscarLocacao}" class="text-blue-500 hover:underline">Buscar Locação por ID</a>
+                -->
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>

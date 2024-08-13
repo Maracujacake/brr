@@ -2,6 +2,9 @@ package web.brr.domains;
 
 import java.util.Set;
 
+import org.hibernate.annotations.DynamicUpdate;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,6 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Locadora")
+@DynamicUpdate
 public class Locadora extends User {
 
     @Id
@@ -24,7 +28,7 @@ public class Locadora extends User {
     @Column(nullable = false, unique = true, length = 100)
     private String cnpj;
 
-    @OneToMany(mappedBy = "locadora")
+    @OneToMany(mappedBy = "locadora",cascade = CascadeType.ALL, orphanRemoval = true)
     Set<Locacao> registrations;
 
     public Set<Locacao> getRegistrations() {
