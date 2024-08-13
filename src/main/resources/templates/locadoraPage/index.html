@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="#{cliente.pagina.titulo}"></title>
+    <title th:text="#{locadora.pagina.titulo}"></title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         .opcao {
@@ -26,21 +26,23 @@
 </head>
 <body class="bg-gradient-to-r from-blue-500 to-blue-900 min-h-screen flex items-center justify-center">
     <div class="max-w-lg bg-white bg-opacity-70 p-6 rounded-lg shadow-lg text-center">
-        <h1 class="text-3xl font-bold text-blue-900 mb-6" th:text=" 'Bem vindo! Olá, ' +  ${currentUser.nome}">CLiente</h1>
-        <p class="text-lg text-black font-semibold mb-6" th:text="#{cliente.pagina.escolhas}"></p>
+        <h1 class="text-3xl font-bold text-blue-900 mb-6" th:text=" 'Olá, ' +  ${currentUser.nome}"></h1>
+        <h1 class="text-3xl font-bold text-blue-900 mb-6">Bem vindo! </h1>
+
+        <p class="text-lg text-black font-semibold mb-6" th:text="#{locadora.pagina.escolhas}"></p>
 
         <div class="space-y-4">
-            <a href="#" class="opcao block p-4 rounded-lg text-blue-900 font-semibold text-xl"
-            th:text="#{cliente.pagina.locacoes}"> </a>
+            <a href="locacao" class="opcao block p-4 rounded-lg text-blue-900 font-semibold text-xl"
+            th:text="#{locadora.pagina.locacoes}"> </a>
 
-            <a href="#" class="opcao block p-4 rounded-lg text-blue-900 font-semibold text-xl"
-            th:text="#{cliente.pagina.dados}">
+            <a href="perfil" class="opcao block p-4 rounded-lg text-blue-900 font-semibold text-xl"
+            th:text="#{locadora.pagina.dados}">
             </a>
             <a href="#" class="opcao block p-4 rounded-lg text-blue-900 font-semibold text-xl"
-            th:text="#{cliente.pagina.locadoras}">
+            th:text="#{locadora.pagina.locadoras}">
             </a>
             <a href="/" class="opcaoInicio block p-4 rounded-lg text-blue-900 font-semibold text-xl"
-            th:text="#{cliente.pagina.voltarInicio}">
+            th:text="#{locadora.pagina.voltarInicio}">
             </a>
         </div>
     </div>

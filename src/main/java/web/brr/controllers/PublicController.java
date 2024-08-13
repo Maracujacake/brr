@@ -82,7 +82,7 @@ public class PublicController {
 
     @PostMapping("/locadora/cadastrar")
     public String saveLocadora(Locadora locadora) {
-        Locadora cli = locadoraService.save(locadora);
+        Locadora cli = locadoraService.save(locadora,false);
         if (cli == null) {
             return "redirect:/publicos/locadora/cadastro?error";
         }

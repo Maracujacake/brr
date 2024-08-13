@@ -3,6 +3,7 @@ package web.brr.repositories;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import web.brr.domains.Locacao;
 
 @Repository
+@DynamicUpdate
 public interface LocacaoRep extends JpaRepository<Locacao, Long> {
     @SuppressWarnings("unchecked")
     Locacao save(Locacao Locacao);

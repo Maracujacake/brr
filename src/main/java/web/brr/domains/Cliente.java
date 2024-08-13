@@ -10,8 +10,11 @@ import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.util.Set;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 @Entity
 @Table(name = "Cliente")
+@DynamicUpdate
 public class Cliente extends User {
 
     @Id
