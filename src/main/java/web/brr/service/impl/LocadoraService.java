@@ -32,6 +32,11 @@ public class LocadoraService implements LocadoraServiceSpec {
         locadoraRep.deleteById(id);
     }
 
+    public List<Locadora> findByNomeContaining(String nome){
+        return locadoraRep.findByNomeContaining(nome);
+    }
+
+
     public List<Locadora> findAll() {
         return locadoraRep.findAll();
     }
@@ -48,7 +53,7 @@ public class LocadoraService implements LocadoraServiceSpec {
         return locadoraRep.findByCnpj(cnpj);
     }
 
-    public Optional<Locadora> findByCidade(String cidade) {
+    public List<Locadora> findByCidade(String cidade) {
         return locadoraRep.findByCidade(cidade);
     }
 

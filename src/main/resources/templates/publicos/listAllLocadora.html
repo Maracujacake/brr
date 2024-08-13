@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Locadoras</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="flex justify-center items-center h-screen">
+        <div class="max-w-4xl w-full p-8 bg-white rounded shadow-lg text-center">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4" th:text="#{locadora.lista}"></h2>
+
+            <!-- Verifica se a lista de locadoras não está vazia -->
+            <div th:if="${not #lists.isEmpty(listaLocadora)}">
+                <table class="w-full mx-auto">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="border border-gray-300 px-4 py-2" th:text="#{nome}"></th>
+                            <th class="border border-gray-300 px-4 py-2" th:text="#{cidade}"></th>
+                            <th class="border border-gray-300 px-4 py-2">CNPJ</th>
+                            <th class="border border-gray-300 px-4 py-2" th:text="#{email}"></th>
+                            <th class="border border-gray-300 px-4 py-2" th:text="#{opcao}"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Itera sobre a lista de locadoras -->
+                        <tr th:each="locadora : ${listaLocadora}" class="border-b border-gray-300">
+                            <td class="border border-gray-300 px-4 py-2" th:text="${locadora.nome}"></td>
+                            <td class="border border-gray-300 px-4 py-2" th:text="${locadora.cidade}"></td>
+                            <td class="border border-gray-300 px-4 py-2" th:text="${locadora.cnpj}"></td>
+                            <td class="border border-gray-300 px-4 py-2" th:text="${locadora.email}"></td>
+                            <td class="border border-gray-300 px-4 py-2">
+                                <!-- TODO : Verificar integrações para atualizar e deletar
+                                <a th:href="@{/admin/editarLocadora(id=${locadora.id})}" class="text-blue-500 hover:underline" th:text="#{atualizar}"></a>
+                                <a th:href="@{/admin/deletarLocadora(id=${locadora.id})}" class="text-red-500 hover:underline ml-2 delete-link" th:text="#{deletar}"></a>
+                                -->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Se a lista de locadoras estiver vazia -->
+            <div th:if="${#lists.isEmpty(listaLocadora)}">
+                <p th:text="#{locadora.notFound}"></p>
+            </div>
+
+            <hr class="my-4">
+
+            <div class="flex justify-around">
+                <a th:href="@{ / }" class="text-gray-500 hover:underline" th:text="#{homepage}"></a>
+                <a th:href="@{locadora/byName}" class="text-blue-500 hover:underline" th:text="#{locadora.getByNome}"></a>
+                <a th:href="@{locadora/ByCidade}" class="text-blue-500 hover:underline" th:text="#{locadora.getByCidade}"></a>
+                <a th:href="@{locadora/cadastro}" class="text-green-500 hover:underline" th:text="#{locadora.add}"></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
