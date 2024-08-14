@@ -93,6 +93,11 @@ public class PublicController {
 
     @PostMapping("/locadora/cadastrar")
     public String saveLocadora(Locadora locadora) {
+        locadora.setRole("ROLE_LOCADORA");
+        List<String> errors = objectValidatorService.validate(locadora);
+        if (!errors.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
+        }
         Locadora cli = locadoraService.save(locadora,false);
         if (cli == null) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Dados Invalidos");

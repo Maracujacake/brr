@@ -18,6 +18,7 @@ import web.brr.domains.Locacao;
 import web.brr.domains.Locadora;
 import web.brr.domains.User;
 import web.brr.service.impl.LocadoraService;
+import web.brr.service.impl.ObjectValidatorService;
 
 @Controller
 @RequestMapping("/locadora")
@@ -25,6 +26,8 @@ public class LocadoraController {
 
     @Autowired
     private LocadoraService locadoraService;
+
+    private ObjectValidatorService objectValidatorService = new ObjectValidatorService();
 
     @GetMapping("/")
     public String index(Model model) {
@@ -73,7 +76,10 @@ public class LocadoraController {
     @PostMapping("/perfil")
     public String editarDados(Locadora locadora) {
         locadora.setRole("ROLE_LOCADORA");
-
+        List<String> errors = objectValidatorService.validate(locadora);
+        if (!errors.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
+        }
         Locadora loc = locadoraService.findByEmail(locadora.getEmail()).orElse(null);
         if(loc != null && loc.getId() != locadora.getId()){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Dados Invalidos");

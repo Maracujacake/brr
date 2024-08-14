@@ -23,8 +23,16 @@ public class ObjectValidatorService implements ObjectValidatorSpec {
        validatorService.addValidator(new TelefoneDataValidator());
        validatorService.addValidator(new UserDataValidator());
        validatorService.addValidator(new DateDataValidator());
+       validatorService.addValidator(new CnpjDataValidator());
+       validatorService.addValidator(new CidadeDataValidator());
     }
 
+    /**
+     * Valida uma classe e seus campos. Portanto é esperado receber objetos como Cliente, User, Locadora, Admin .
+     * 
+     * @param target The object to be validated.
+     * @return A list of validation errors, if any.
+     */
     @Override
     public List<String> validate(Object target) {
         List<String> errors = new ArrayList<>();
@@ -35,7 +43,6 @@ public class ObjectValidatorService implements ObjectValidatorSpec {
         Field[] fields = target.getClass().getDeclaredFields();
         for (Field field : fields) {
             field.setAccessible(true);
-            System.out.println("Field name: " + field.getName());
             try {
                 Object value = field.get(target);
                 if (value != null) {

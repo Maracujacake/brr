@@ -91,9 +91,16 @@
             v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
             event.target.value = v;
         }
+        function allowOnlyLetters(event) {
+                var v = event.target.value;
+                v = v.replace(/[^a-zA-Z ]/g, ""); // Replace all non-letter characters
+                event.target.value = v;
+        }
     
         document.getElementById("telefone").addEventListener('input', applyPhoneMask);
         document.getElementById("cpf").addEventListener('input', applyCpfMask);
+        document.getElementById("nome").addEventListener('input', allowOnlyLetters);
+
         });
     </script>
 </body>
