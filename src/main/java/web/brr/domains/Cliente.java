@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.hibernate.annotations.DynamicUpdate;
@@ -36,14 +37,17 @@ public class Cliente extends User {
     private LocalDate dataNascimento;
 
     @OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL, orphanRemoval = true)
-    Set<Locacao> registrations;
+    Set<Locacao> registrations = new HashSet<>();
 
     public Set<Locacao> getRegistrations() {
         return registrations;
     }
 
     public void setRegistrations(Set<Locacao> registrations) {
-        this.registrations = registrations;
+        this.registrations.clear();
+        if (registrations != null) {
+            this.registrations.addAll(registrations);
+        }
     }
 
     // Getters and Setters

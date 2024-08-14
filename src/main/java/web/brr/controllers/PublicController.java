@@ -16,7 +16,7 @@ import web.brr.domains.Cliente;
 import web.brr.domains.Locadora;
 import web.brr.service.impl.ClienteService;
 import web.brr.service.impl.LocadoraService;
-
+import web.brr.service.impl.ObjectValidatorService;
 @Controller
 @RequestMapping("/publicos")
 public class PublicController {
@@ -27,6 +27,9 @@ public class PublicController {
     @Autowired
     private LocadoraService locadoraService;
 
+    private ObjectValidatorService objectValidatorService = new ObjectValidatorService();
+
+
     @GetMapping("/cliente/cadastro")
     public String showCadastro(Model model) {
         model.addAttribute("cliente", new Cliente());
@@ -35,6 +38,11 @@ public class PublicController {
 
     @PostMapping("/cliente/cadastrar")
     public String saveCliente(Cliente cliente) {
+        cliente.setRole("ROLE_CLIENTE");
+        List<String> errors = objectValidatorService.validate(cliente);
+        if (!errors.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
+        }
         Cliente cli = clienteService.save(cliente);
         if (cli == null) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Dados Invalidos");
@@ -85,6 +93,11 @@ public class PublicController {
 
     @PostMapping("/locadora/cadastrar")
     public String saveLocadora(Locadora locadora) {
+        locadora.setRole("ROLE_LOCADORA");
+        List<String> errors = objectValidatorService.validate(locadora);
+        if (!errors.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
+        }
         Locadora cli = locadoraService.save(locadora,false);
         if (cli == null) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Dados Invalidos");
