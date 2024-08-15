@@ -44,13 +44,13 @@
                         <tr th:each="loc : ${locacao}" class="border-b border-gray-300">
                             <td class="border border-gray-300 px-4 py-2" th:text="${loc.locadora.cnpj}"></td>
                             <td class="border border-gray-300 px-4 py-2" th:text="${loc.registeredAt}"></td>
-                            <!-- TODO: fix links e implementar
+                            <!-- TODO: fix links e implementar -->
                             <td class="border border-gray-300 px-4 py-2">
-                                <a th:href="@{/locacao/editar(id=${locacao.id})}" 
+                                <a th:href="@{/locacao/{id}(id=${loc.id})}" 
                                     class="text-blue-500 hover:underline">Update</a>
-                                <a th:href="@{/locacao/deletar(id=${locacao.id})}" 
-                                    class="text-red-500 hover:underline ml-2 delete-link">Delete</a>
-                            </td>-->
+                                <!-- <a th:href="@{/locacao/deletar(id=${locacao.id})}" 
+                                    class="text-red-500 hover:underline ml-2 delete-link">Delete</a> -->
+                            </td>
                         </tr>
                     </tbody>
                 </table>
