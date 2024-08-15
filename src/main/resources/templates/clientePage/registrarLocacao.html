@@ -26,28 +26,28 @@
 </head>
 <body>
     <div>
-        <h1>Registrar Nova Locação</h1>
+        <h1 th:text="#{cliente.addLocacao}">Registrar Nova Locação</h1>
         
         <!-- Form to register a new locação -->
         <form action="registrar" method="post" class="flex flex-col space-y-4">
             <div>
                 <!-- Combo box for locadora selection -->
-                <label for="locadoraSelect">Selecionar Locadora:</label>
+                <label for="locadoraSelect" th:text="#{cliente.selecioneLocadoraTitulo}">Selecionar Locadora:</label>
                 <select id="locadoraSelect" name="locadoraId">
-                    <option value="" disabled selected>Selecione uma locadora</option>
+                    <option value="" disabled selected th:text="#{cliente.selecioneLocadora}">Selecione uma locadora</option>
                     <option th:each="loc : ${locadoras}" th:value="${loc.id}" th:text="${loc.nome}"></option>
                 </select>
             </div>
             
             <div>
                 <!-- Input field for date -->
-                <label for="dateInput">Data de Locação:</label>
+                <label for="dateInput" th:text="#{locacao.data}">Data de Locação:</label>
                 <input  type="datetime-local" id="dateInput" name="locacaoDate" required />
             </div>
             
             <div>
                 <!-- Submit button -->
-                <button type="submit">Registrar</button>
+                <button type="submit" th:text="#{register}">Registrar</button>
             </div>
             <!-- TODO : Botão para voltar para a pagina de locacoes-->
         </form>
