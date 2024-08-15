@@ -118,7 +118,7 @@ public class ClientController {
         locacao.setRegisteredAt(locacaoDate);
 
         locacaoService.save(locacao);
-        return "clientePage/registrarLocacao";
+        return "redirect:registrar";
     }
 
     @GetMapping("/perfil")
