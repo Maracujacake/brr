@@ -30,7 +30,6 @@
             <h2 class="text-2xl font-bold text-gray-800 mb-6 my-8 text-center" th:text="#{cliente.edit}">Edit Client</h2>
             <form th:action="@{perfil}" method="post" class="space-y-4">
                 <input type="hidden" name="id" th:value="${cliente.id}">
-                <input type="hidden" name="senha" th:value="${cliente.senha}">
                 <div>
                     <label for="nome" class="block text-sm font-medium text-gray-700" th:text="#{nome}">Nome:</label>
                     <input type="text" name="nome" id="nome" th:value="${cliente.nome}" required class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
@@ -62,6 +61,11 @@
                 <div>
                     <label for="dataNascimento" class="block text-sm font-medium text-gray-700" th:text="#{birthdate}">Data de Nascimento:</label>
                     <input type="date" name="dataNascimento" th:value="${cliente.dataNascimento}" required class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <div>
+                    <label for="senha" class="block text-sm font-medium text-gray-700" th:text="#{senha}">Senha</label>
+                    <input type="text" name="senha" class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder=" ">
                 </div>
 
                 <div class="text-center">

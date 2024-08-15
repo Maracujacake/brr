@@ -32,7 +32,6 @@
 
                 <input type="hidden" name="id" th:value="${locadora.id}">
                 <input type="hidden" name="cnpj" th:value="${locadora.cnpj}">
-                <input type="hidden" name="senha" th:value="${locadora.senha}">
 
                 <div>
                     <label for="nome" class="block text-sm font-medium text-gray-700" th:text="#{nome}">Nome</label>
@@ -47,6 +46,11 @@
                 <div>
                     <label for="cidade" class="block text-sm font-medium text-gray-700" th:text="#{cidade}">Cidade</label>
                     <input type="text" name="cidade" th:value="${locadora.cidade}" required class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <div>
+                    <label for="senha" class="block text-sm font-medium text-gray-700" th:text="#{senha}">Senha</label>
+                    <input type="text" name="senha" class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder=" ">
                 </div>
 
                 <div class="text-center">

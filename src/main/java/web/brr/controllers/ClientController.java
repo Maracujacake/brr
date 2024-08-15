@@ -22,6 +22,7 @@ import web.brr.domains.Cliente;
 import web.brr.domains.Locacao;
 import web.brr.domains.Locadora;
 import web.brr.domains.User;
+import web.brr.encrypt.EncryptPassword;
 import web.brr.service.impl.ClienteService;
 import web.brr.service.impl.LocacaoService;
 import web.brr.service.impl.LocadoraService;
@@ -139,6 +140,12 @@ public class ClientController {
     @PostMapping("/perfil")
     public String editarDados(Cliente cliente) {
         cliente.setRole("ROLE_CLIENTE");
+        String newPasswd = cliente.getSenha();
+        cliente.setSenha(clienteService.findById(cliente.getId()).get().getSenha());
+        if (newPasswd != null && !newPasswd.isEmpty()) {
+            newPasswd = EncryptPassword.encrypt(newPasswd);
+            cliente.setSenha(newPasswd);
+        }
         List<String> errors = objectValidatorService.validate(cliente);
         if (!errors.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());

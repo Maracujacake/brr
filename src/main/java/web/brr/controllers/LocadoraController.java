@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import web.brr.domains.Locacao;
 import web.brr.domains.Locadora;
 import web.brr.domains.User;
+import web.brr.encrypt.EncryptPassword;
 import web.brr.service.impl.LocadoraService;
 import web.brr.service.impl.ObjectValidatorService;
 
@@ -76,6 +77,12 @@ public class LocadoraController {
     @PostMapping("/perfil")
     public String editarDados(Locadora locadora) {
         locadora.setRole("ROLE_LOCADORA");
+        String newPasswd = locadora.getSenha();
+        locadora.setSenha(locadoraService.findById(locadora.getId()).get().getSenha());
+        if (newPasswd != null && !newPasswd.isEmpty()) {
+            newPasswd = EncryptPassword.encrypt(newPasswd);
+            locadora.setSenha(newPasswd);
+        }
         List<String> errors = objectValidatorService.validate(locadora);
         if (!errors.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
