@@ -8,7 +8,7 @@ import web.brr.domains.Locadora;
 
 public interface LocadoraServiceSpec {
 
-    Locadora save(Locadora locadora,Boolean update);
+    Locadora save(Locadora locadora, Boolean update);
 
     void deleteById(Long id);
 
@@ -22,7 +22,7 @@ public interface LocadoraServiceSpec {
 
     List<Locadora> findByCidade(String cidade);
 
-    Optional<Locadora> findByEmailOrCnpj(String email, String cnpj);
+    List<Locadora> findByEmailOrCnpj(String email, String cnpj);
 
     List<Locadora> findByNomeContaining(String nome);
 

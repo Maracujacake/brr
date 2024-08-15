@@ -41,7 +41,7 @@ public class LocadoraController {
         }
         return "locadoraPage/index";
     }
-    
+
     @GetMapping("/locacao")
     public String getLocacoes(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -50,7 +50,7 @@ public class LocadoraController {
                 && authentication.getPrincipal() instanceof UserDetails) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             User user = locadoraService.findByEmail(userDetails.getUsername()).orElse(null);
-            logged =(Locadora) user;
+            logged = (Locadora) user;
             model.addAttribute("currentUser", user);
         }
         List<Locacao> locacao = locadoraService.findRegistrations(logged.getId().toString());
@@ -80,14 +80,14 @@ public class LocadoraController {
         if (!errors.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
         }
+
         Locadora loc = locadoraService.findByEmail(locadora.getEmail()).orElse(null);
-        if(loc != null && loc.getId() != locadora.getId()){
+        if (loc != null && loc.getId() != locadora.getId()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Dados Invalidos");
         }
 
-        locadoraService.save(locadora,true);
+        locadoraService.save(locadora, true);
         return "redirect:/locadora/perfil";
     }
-
 
 }
