@@ -18,12 +18,8 @@ public class LocadoraService implements LocadoraServiceSpec {
     private LocadoraRep locadoraRep;
 
     public Locadora save(Locadora locadora, Boolean update) {
-        if(update) return locadoraRep.save(locadora);
-        Optional<web.brr.domains.Locadora> nome = locadoraRep.findByEmailOrCnpj(locadora.getEmail(),
-                locadora.getCnpj());
-        if (nome.isPresent()) {
-            return null;
-        }
+        if (update)
+            return locadoraRep.save(locadora);
 
         locadora.setSenha(EncryptPassword.encrypt(locadora.getSenha()));
         locadora.setRole("ROLE_LOCADORA");
@@ -34,10 +30,9 @@ public class LocadoraService implements LocadoraServiceSpec {
         locadoraRep.deleteById(id);
     }
 
-    public List<Locadora> findByNomeContaining(String nome){
+    public List<Locadora> findByNomeContaining(String nome) {
         return locadoraRep.findByNomeContaining(nome);
     }
-
 
     public List<Locadora> findAll() {
         return locadoraRep.findAll();
@@ -59,11 +54,12 @@ public class LocadoraService implements LocadoraServiceSpec {
         return locadoraRep.findByCidade(cidade);
     }
 
-    public Optional<Locadora> findByEmailOrCnpj(String email, String cnpj) {
+    @Deprecated
+    public List<Locadora> findByEmailOrCnpj(String email, String cnpj) {
         return locadoraRep.findByEmailOrCnpj(email, cnpj);
     }
 
-    public List<Locacao> findRegistrations(String id){
+    public List<Locacao> findRegistrations(String id) {
         return locadoraRep.findRegistrations(id);
     }
 }

@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import web.brr.domains.Locacao;
 import web.brr.domains.Locadora;
 import web.brr.domains.User;
+import web.brr.encrypt.EncryptPassword;
 import web.brr.service.impl.LocadoraService;
 import web.brr.service.impl.ObjectValidatorService;
 
@@ -41,7 +42,7 @@ public class LocadoraController {
         }
         return "locadoraPage/index";
     }
-    
+
     @GetMapping("/locacao")
     public String getLocacoes(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -50,7 +51,7 @@ public class LocadoraController {
                 && authentication.getPrincipal() instanceof UserDetails) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             User user = locadoraService.findByEmail(userDetails.getUsername()).orElse(null);
-            logged =(Locadora) user;
+            logged = (Locadora) user;
             model.addAttribute("currentUser", user);
         }
         List<Locacao> locacao = locadoraService.findRegistrations(logged.getId().toString());
@@ -76,18 +77,24 @@ public class LocadoraController {
     @PostMapping("/perfil")
     public String editarDados(Locadora locadora) {
         locadora.setRole("ROLE_LOCADORA");
+        String newPasswd = locadora.getSenha();
+        locadora.setSenha(locadoraService.findById(locadora.getId()).get().getSenha());
+        if (newPasswd != null && !newPasswd.isEmpty()) {
+            newPasswd = EncryptPassword.encrypt(newPasswd);
+            locadora.setSenha(newPasswd);
+        }
         List<String> errors = objectValidatorService.validate(locadora);
         if (!errors.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
         }
+
         Locadora loc = locadoraService.findByEmail(locadora.getEmail()).orElse(null);
-        if(loc != null && loc.getId() != locadora.getId()){
+        if (loc != null && loc.getId() != locadora.getId()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Dados Invalidos");
         }
 
-        locadoraService.save(locadora,true);
+        locadoraService.save(locadora, true);
         return "redirect:/locadora/perfil";
     }
-
 
 }

@@ -31,7 +31,8 @@ public interface ClienteRep extends JpaRepository<Cliente, Long> {
     @Query("SELECT c FROM Locacao c WHERE c.cliente.id = :id")
     List<Locacao> findRegistrations(@Param("id") String id);
 
-    @Query("SELECT c FROM Cliente c WHERE c.email = :email OR c.cpf = :cpf OR c.telefone = :telefone")
-    Optional<Cliente> findByEmailOrCpfOrTelefone(@Param("email") String email, @Param("cpf") String cpf,
+    @Deprecated
+    @Query("SELECT c FROM Cliente c CROSS JOIN User u WHERE u.email = :email OR c.cpf = :cpf OR c.telefone = :telefone")
+    List<Cliente> findByEmailOrCpfOrTelefone(@Param("email") String email, @Param("cpf") String cpf,
             @Param("telefone") String telefone);
 }

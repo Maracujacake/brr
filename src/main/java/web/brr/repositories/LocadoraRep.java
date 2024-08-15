@@ -30,10 +30,11 @@ public interface LocadoraRep extends JpaRepository<Locadora, Long> {
     List<Locadora> findByCidade(@Param("cidade") String cidade);
 
     @Query("SELECT loc FROM Locadora loc WHERE loc.nome LIKE %:nome%")
-    List<Locadora> findByNomeContaining(@Param("nome") String  nome);
+    List<Locadora> findByNomeContaining(@Param("nome") String nome);
 
-    @Query("SELECT loc FROM Locadora loc WHERE loc.email = :email OR loc.cnpj = :cnpj")
-    Optional<Locadora> findByEmailOrCnpj(@Param("email") String email, @Param("cnpj") String cnpj);
+    @Deprecated
+    @Query("SELECT loc FROM Locadora loc CROSS JOIN User u WHERE u.email = :email OR loc.cnpj = :cnpj")
+    List<Locadora> findByEmailOrCnpj(@Param("email") String email, @Param("cnpj") String cnpj);
 
     @Query("SELECT loc FROM Locacao loc WHERE loc.locadora.id = :id")
     List<Locacao> findRegistrations(String id);

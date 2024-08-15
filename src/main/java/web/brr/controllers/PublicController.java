@@ -1,6 +1,7 @@
 package web.brr.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,9 +15,12 @@ import org.springframework.web.server.ResponseStatusException;
 
 import web.brr.domains.Cliente;
 import web.brr.domains.Locadora;
+import web.brr.domains.User;
 import web.brr.service.impl.ClienteService;
 import web.brr.service.impl.LocadoraService;
 import web.brr.service.impl.ObjectValidatorService;
+import web.brr.service.impl.UserService;
+
 @Controller
 @RequestMapping("/publicos")
 public class PublicController {
@@ -27,8 +31,10 @@ public class PublicController {
     @Autowired
     private LocadoraService locadoraService;
 
-    private ObjectValidatorService objectValidatorService = new ObjectValidatorService();
+    @Autowired
+    private UserService userService;
 
+    private ObjectValidatorService objectValidatorService = new ObjectValidatorService();
 
     @GetMapping("/cliente/cadastro")
     public String showCadastro(Model model) {
@@ -43,10 +49,14 @@ public class PublicController {
         if (!errors.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
         }
-        Cliente cli = clienteService.save(cliente);
-        if (cli == null) {
+        Optional<User> user = userService.findByEmail(cliente.getEmail());
+        Optional<Cliente> existCli = clienteService.findByCpf(cliente.getCpf());
+        Optional<Cliente> existTel = clienteService.findByTelefone(cliente.getTelefone());
+        if (user.isPresent() || existCli.isPresent() || existTel.isPresent())
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Dados Invalidos");
-        }
+
+        clienteService.save(cliente, false);
+
         return "index";
     }
 
@@ -60,7 +70,7 @@ public class PublicController {
 
     @GetMapping("/locadora/byName")
     public String showLocadoraByName() {
-   
+
         return "publicos/locadoraByName";
     }
 
@@ -70,10 +80,10 @@ public class PublicController {
         model.addAttribute("listaLocadora", listaLocadora);
         return "publicos/listByNameLocadora";
     }
-    
+
     @GetMapping("/locadora/ByCidade")
     public String showLocadoraByCidade() {
-   
+
         return "publicos/locadoraByCidade";
     }
 
@@ -89,7 +99,6 @@ public class PublicController {
         model.addAttribute("loc", new Locadora());
         return "publicos/cadastroLocadora";
     }
-    
 
     @PostMapping("/locadora/cadastrar")
     public String saveLocadora(Locadora locadora) {
@@ -98,10 +107,15 @@ public class PublicController {
         if (!errors.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
         }
-        Locadora cli = locadoraService.save(locadora,false);
-        if (cli == null) {
+        Optional<User> user = userService.findByEmail(locadora.getEmail());
+        Optional<Locadora> existCli = locadoraService.findByCnpj(locadora.getCnpj());
+
+        if (user.isPresent() || existCli.isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Dados Invalidos");
         }
+
+        locadoraService.save(locadora, false);
+
         return "index";
     }
 }

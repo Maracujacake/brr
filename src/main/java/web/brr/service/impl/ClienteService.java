@@ -17,12 +17,10 @@ public class ClienteService implements ClienteServiceSpec {
     @Autowired
     ClienteRep clienteDAO;
 
-    public Cliente save(Cliente Cliente) {
-        Optional<web.brr.domains.Cliente> nome = clienteDAO.findByEmailOrCpfOrTelefone(Cliente.getEmail(),
-                Cliente.getCpf(), Cliente.getTelefone());
-        if (nome.isPresent()) {
-            return null;
-        }
+    public Cliente save(Cliente Cliente, Boolean update) {
+        if (update)
+            return clienteDAO.save(Cliente);
+
         Cliente.setSenha(EncryptPassword.encrypt(Cliente.getSenha()));
         Cliente.setRole("ROLE_CLIENTE");
         return clienteDAO.save(Cliente);
@@ -36,10 +34,9 @@ public class ClienteService implements ClienteServiceSpec {
         return clienteDAO.findAll();
     }
 
-    public List<Locacao> findRegistrations(String id){
+    public List<Locacao> findRegistrations(String id) {
         return clienteDAO.findRegistrations(id);
     }
-
 
     public Optional<Cliente> findById(Long id) {
         return clienteDAO.findById(id);
@@ -55,5 +52,10 @@ public class ClienteService implements ClienteServiceSpec {
 
     public Optional<Cliente> findByTelefone(String telefone) {
         return clienteDAO.findByTelefone(telefone);
+    }
+
+    @Deprecated
+    public List<Cliente> findByEmailOrCpfOrTelefone(String email, String cpf, String telefone) {
+        return clienteDAO.findByEmailOrCpfOrTelefone(email, cpf, telefone);
     }
 }
