@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 import web.brr.domains.Locacao;
@@ -112,6 +113,50 @@ public class LocacaoController {
         }
 
         return "redirect:/locacao/" + newLocacao.getId();
+    }
+
+    @GetMapping("/deletar/{id}")
+    public String deletarLoc(@ModelAttribute("locacao") Locacao locacao, @RequestParam("ref") String referrerUrl) {
+        Locacao loc = locacaoService.findById(locacao.getId()).orElse(null);
+        if (loc == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Locação não encontrada");
+        }
+        String returnString = null;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User logged = null;
+        if (authentication != null && authentication.isAuthenticated()
+                && authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            User user = userService.findByEmail(userDetails.getUsername()).orElse(null);
+            logged = user;
+
+        }
+        if (logged == null) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                    "Você não tem permissão para deletar essa locação");
+        }
+
+        // Se a pessoa logada for um admin, deletar
+        if (logged.getRole().equals("ROLE_ADMIN")) {
+            locacaoService.deleteById(locacao.getId());
+            returnString = "redirect:/admin/";
+        }
+
+        // Se a pessoa logada for um cliente, verificar se o ID da locacao é dele
+        else if (loc.getCliente().getId() == logged.getId() || loc.getLocadora().getId() == logged.getId()) {
+            locacaoService.deleteById(locacao.getId());
+            returnString = "redirect:/locadora/";
+            if (loc.getCliente().getId() == logged.getId())
+                returnString = "redirect:/cliente/";
+
+        } else {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                    "Você não tem permissão para deletar essa locação");
+        }
+        if (referrerUrl != null && !referrerUrl.isEmpty()) {
+            returnString = "redirect:" + referrerUrl;
+        }
+        return returnString;
     }
 
 }

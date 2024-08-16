@@ -111,7 +111,6 @@ public class ClientController {
         if (!locadora.isPresent())
             throw new RuntimeException("Locadora não encontrada");
 
-        // TODO : LOGICA PARA CHECAR LOCACAO
         Locacao locacao = new Locacao();
         locacao.setCliente(logged);
         locacao.setLocadora(locadora.get());
