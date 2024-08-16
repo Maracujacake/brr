@@ -142,7 +142,7 @@ public class ClientController {
                         + locacao.getLocadora().getNome());
         if (!result)
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao enviar email");
-        result = this.sendGridEmailService.sendEmail(locacao.getLocadora().getEmail(), "Locaoção Registrada",
+        result = this.sendGridEmailService.sendEmail(locacao.getLocadora().getEmail(), "Locação Registrada",
                 "Locação registrada com sucesso para a data " + locacao.getRegisteredAt() + " com o cliente "
                         + logged.getNome());
         if (!result)
