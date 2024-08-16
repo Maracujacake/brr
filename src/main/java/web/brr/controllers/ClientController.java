@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 import web.brr.domains.Cliente;
 import web.brr.domains.Locacao;
 import web.brr.domains.Locadora;
@@ -37,6 +36,8 @@ public class ClientController {
 
     @Autowired 
     private LocacaoService locacaoService;
+
+
 
     @GetMapping("/")
     public String loginPage(Model model) {
@@ -107,7 +108,7 @@ public class ClientController {
         locacao.setRegisteredAt(locacaoDate);
         
         locacaoService.save(locacao);
-        return "clientePage/registrarLocacao";
+        return "clientePage/locacao";
     }
 
 }

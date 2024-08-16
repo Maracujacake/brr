@@ -23,10 +23,10 @@
         <div class="flex-grow"></div>
         <div class="flex space-x-4">
             <!-- Navbar Buttons -->
-            <a href="/cliente" class="text-white hover:text-yellow-300">Cliente</a>
-            <a href="/locadora" class="text-white hover:text-yellow-300">Locadora</a>
-            <a href="/admin" class="text-white hover:text-yellow-300">Administrador</a>
-            <a href="/publicos/sobre" class="text-white hover:text-yellow-300">Sobre</a>
+            <a href="/cliente" class="text-white hover:text-yellow-300" th:text="#{clientes}">Cliente</a>
+            <a href="/locadora" class="text-white hover:text-yellow-300" th:text="#{locadoras}">Locadora</a>
+            <a href="/admin" class="text-white hover:text-yellow-300">Admin</a>
+            <a href="/publicos/sobre" class="text-white hover:text-yellow-300" th:text="#{sobre}">Sobre</a>
         </div>
     </nav>
 
@@ -35,11 +35,11 @@
         <section class="flex items-center justify-center h-full p-8 transition duration-300 ease-in-out">
             <!-- Edit Admin Form Section -->
             <div class="flex flex-col max-w-lg bg-white bg-opacity-70 p-8 rounded-lg transition duration-300 ease-in-out">
-                <h1 class="text-4xl font-bold text-blue-900 mb-6">Editar Perfil - Admin</h1>
+                <h1 class="text-4xl font-bold text-blue-900 mb-6" th:text="#{admin.pagina.editarPerfil}">Editar Perfil - Admin</h1>
                 <form action="/admin/editar" method="post" class="flex flex-col space-y-4">
                     <input type="hidden" name="id" th:value="${currentUser.id}">
                     <div>
-                        <label for="nome" class="block text-lg font-semibold text-black">Nome</label>
+                        <label for="nome" class="block text-lg font-semibold text-black" th:text="#{nome}">Nome</label>
                         <input type="text" id="nome" name="nome" th:value="${currentUser.nome}" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
@@ -47,7 +47,7 @@
                         <input type="email" id="email" name="email" th:value="${currentUser.email}" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
-                        <label for="senha" class="block text-lg font-semibold text-black">Nova Senha</label>
+                        <label for="senha" class="block text-lg font-semibold text-black" th:text="#{novaSenha}">Nova Senha</label>
                         <input type="text" id="senha" name="senha" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                     <button type="submit" class="bg-blue-900 text-white font-semibold py-2 rounded-md hover:bg-yellow-400 transition duration-300 ease-in-out">Salvar Alterações</button>

@@ -68,7 +68,8 @@
                 <a th:href="@{/}" class="text-gray-500 hover:underline">Voltar à página inicial</a>
                 <a th:href="@{/locacao/buscarLocacao}" class="text-blue-500 hover:underline">Buscar Locação por ID</a>
                 -->
-                <a th:href="@{registrar}" class="text-green-500 hover:underline">Adicionar Locação</a>
+                <a th:href="@{registrar}" class="text-green-500 hover:underline" th:text="#{locacao.add}">Adicionar Locação</a>
+                <a href="/cliente/" class="text-green-500 hover:underline" th:text="#{voltarOpcoes}">Voltar as opções</a>
             </div>
             
         </div>

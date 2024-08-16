@@ -1,6 +1,6 @@
 -- insercao de admin
 INSERT INTO user (id, nome, email, senha, role) VALUES 
-(10, 'Adao', 'Adao@peganomeupão.com', '123456', 'ROLE_ADMIN');
+(10, 'Adao', 'Adao@peganomeupao.com', '123456', 'ROLE_ADMIN');
 
 INSERT INTO admin (id, privelegios) VALUES 
 (10, 'alguns ai');
