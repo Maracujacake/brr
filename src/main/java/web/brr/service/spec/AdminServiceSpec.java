@@ -24,5 +24,7 @@ public interface AdminServiceSpec {
 
     Optional<Admin> findByEmail(String email);
 
-    Admin save(Admin admin,Boolean update);
+    Admin save(Admin admin, Boolean update);
+
+    Optional<Admin> findById(Long id);
 }

@@ -23,7 +23,6 @@ public class AdminService implements AdminServiceSpec {
     @Autowired
     AdminRep adminRep;
 
-
     // Métodos de cliente
     @Override
     public void deleteClienteById(Long id) {
@@ -60,14 +59,19 @@ public class AdminService implements AdminServiceSpec {
         return clienteRep.findByTelefone(telefone);
     }
 
-
     // Métodos de admin
     public Optional<Admin> findByEmail(String email) {
         return adminRep.findByEmail(email);
     }
 
+    public Optional<Admin> findById(Long id) {
+        return adminRep.findById(id);
+    }
+
     public Admin save(Admin admin, Boolean update) {
-        if(update) return adminRep.save(admin);
+        admin.setPrivelegios("0");
+        if (update)
+            return adminRep.save(admin);
         Optional<web.brr.domains.Admin> nome = adminRep.findByEmail(admin.getEmail());
         if (nome.isPresent()) {
             return null;
@@ -80,5 +84,5 @@ public class AdminService implements AdminServiceSpec {
         admin.setPrivelegios(admin.getPrivelegios());
         return adminRep.save(admin);
     }
-    
+
 }
