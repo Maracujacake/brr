@@ -27,23 +27,30 @@ import web.brr.service.impl.ClienteService;
 import web.brr.service.impl.LocacaoService;
 import web.brr.service.impl.LocadoraService;
 import web.brr.service.impl.ObjectValidatorService;
+import web.brr.service.impl.SendGridEmailService;
 import web.brr.service.impl.UserService;
 
 @Controller
 @RequestMapping("/cliente")
 public class ClientController {
 
-    @Autowired
     private ClienteService clienteService;
+    private final LocadoraService locadoraService;
+    private final LocacaoService locacaoService;
+    private final UserService userService;
+    private final SendGridEmailService sendGridEmailService;
 
     @Autowired
-    private LocadoraService locadoraService;
-
-    @Autowired
-    private LocacaoService locacaoService;
-
-    @Autowired
-    private UserService userService;
+    public ClientController(LocadoraService locadoraService,
+            LocacaoService locacaoService,
+            UserService userService,
+            SendGridEmailService sendGridEmailService, ClienteService clienteService) {
+        this.locadoraService = locadoraService;
+        this.locacaoService = locacaoService;
+        this.userService = userService;
+        this.sendGridEmailService = sendGridEmailService;
+        this.clienteService = clienteService;
+    }
 
     private ObjectValidatorService objectValidatorService = new ObjectValidatorService();
 
@@ -130,6 +137,16 @@ public class ClientController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Já existe uma locação para essa data");
         }
 
+        Boolean result = this.sendGridEmailService.sendEmail(logged.getEmail(), "Locação Registrada",
+                "Locação registrada com sucesso para a data " + locacao.getRegisteredAt() + " na locadora "
+                        + locacao.getLocadora().getNome());
+        if (!result)
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao enviar email");
+        result = this.sendGridEmailService.sendEmail(locacao.getLocadora().getEmail(), "Locaoção Registrada",
+                "Locação registrada com sucesso para a data " + locacao.getRegisteredAt() + " com o cliente "
+                        + logged.getNome());
+        if (!result)
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao enviar email");
         locacaoService.save(locacao);
         return "redirect:registrar";
     }
