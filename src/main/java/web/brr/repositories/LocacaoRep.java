@@ -1,5 +1,6 @@
 package web.brr.repositories;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +24,6 @@ public interface LocacaoRep extends JpaRepository<Locacao, Long> {
 
     Optional<Locacao> findById(Long id);
 
-
     @Query("SELECT c FROM Locacao c WHERE c.cliente.id = :id")
     List<Locacao> findClienteRegistrations(@Param("id") String id);
 
@@ -31,11 +31,14 @@ public interface LocacaoRep extends JpaRepository<Locacao, Long> {
     List<Locacao> findLocadoraRegistrations(@Param("id") String id);
 
     @Query("SELECT c FROM Locacao c WHERE c.cliente.id = :idCliente AND c.locadora.id = :idLocadora")
-    List<Locacao> findClienteAndLocadoraRegistrations(@Param("idCliente") String idCliente, @Param("idLocadora") String idLocadora);
+    List<Locacao> findClienteAndLocadoraRegistrations(@Param("idCliente") String idCliente,
+            @Param("idLocadora") String idLocadora);
 
     @Query("SELECT c FROM Locacao c WHERE c.registeredAt = :registeredAt AND c.locadora.id = :idLocadora")
-    List<Locacao> findLocacaoLocadoraByDate(@Param("registeredAt") String registeredAt, @Param("idLocadora") String idLocadora);
+    List<Locacao> findLocacaoLocadoraByDate(@Param("registeredAt") LocalDateTime registeredAt,
+            @Param("idLocadora") String idLocadora);
 
     @Query("SELECT c FROM Locacao c WHERE c.registeredAt = :registeredAt AND c.cliente.id = :idCliente")
-    List<Locacao> findLocacaoClienteByDate(@Param("registeredAt") String registeredAt, @Param("idCliente") String idCliente);
+    List<Locacao> findLocacaoClienteByDate(@Param("registeredAt") LocalDateTime registeredAt,
+            @Param("idCliente") String idCliente);
 }

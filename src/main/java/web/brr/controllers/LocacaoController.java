@@ -1,5 +1,8 @@
 package web.brr.controllers;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,14 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 import web.brr.domains.Locacao;
 import web.brr.domains.User;
 import web.brr.service.impl.LocacaoService;
+import web.brr.service.impl.ObjectValidatorService;
 import web.brr.service.impl.UserService;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,22 +33,27 @@ public class LocacaoController {
     @Autowired
     private UserService userService;
 
+    private ObjectValidatorService objectValidatorService = new ObjectValidatorService();
+
     @GetMapping("/{id}")
     public String locacaoPage(@PathVariable("id") Long id, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User logged = null;
         if (authentication != null && authentication.isAuthenticated()
                 && authentication.getPrincipal() instanceof UserDetails) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             User user = userService.findByEmail(userDetails.getUsername()).orElse(null);
-            logged = user;
-
+            if (user != null) {
+                model.addAttribute("logged", user);
+            }
         }
 
         Locacao loc = locacaoService.findById(id).orElse(null);
         if (loc == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Locação não encontrada");
         }
+        LocalDateTime dataAtual = LocalDateTime.now();
+        String data = dataAtual.toString();
+        model.addAttribute("dataAtual", data.substring(0, data.lastIndexOf(":")));
         model.addAttribute("locacao", loc);
         return "locacaoPage/index";
     }
@@ -59,6 +66,7 @@ public class LocacaoController {
         if (loc == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Locação não encontrada");
         }
+
         newLocacao.setCliente(loc.getCliente());
         newLocacao.setLocadora(loc.getLocadora());
         // Preciso do ID de quem fez a requisição(logado)
@@ -76,24 +84,29 @@ public class LocacaoController {
                     "Você não tem permissão para atualizar essa locação");
         }
 
+        List<String> errors = objectValidatorService.validate(newLocacao);
+        if (!errors.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
+        }
+
+        // Verificar se alguem ja tem essa locacao
+        List<Locacao> locacoes = locacaoService.findLocacaoClienteByDate(newLocacao.getRegisteredAt(),
+                newLocacao.getCliente().getId().toString());
+        locacoes.addAll(locacaoService.findLocacaoLocadoraByDate(newLocacao.getRegisteredAt(),
+                newLocacao.getLocadora().getId().toString()));
+        if (!locacoes.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Já existe uma locação para essa data");
+        }
         // Se a pessoa logada for um admin, atualizar
         if (logged.getRole().equals("ROLE_ADMIN")) {
-            // TODO: VERIFICAR LOGICA DE HORARIO
             locacaoService.save(newLocacao);
         }
 
         // Se a pessoa logada for um cliente, verificar se o ID da locacao é dele
-        else if (newLocacao.getCliente().getId() == logged.getId()) {
-            // TODO: VERIFICAR LOGICA DE HORARIO
+        else if (newLocacao.getCliente().getId() == logged.getId()
+                || newLocacao.getLocadora().getId() == logged.getId()) {
             locacaoService.save(newLocacao);
-        }
-
-        else if (newLocacao.getLocadora().getId() == logged.getId()) {
-            // TODO: VERIFICAR LOGICA DE HORARIO
-            locacaoService.save(newLocacao);
-        }
-
-        else {
+        } else {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN,
                     "Você não tem permissão para atualizar essa locação");
         }

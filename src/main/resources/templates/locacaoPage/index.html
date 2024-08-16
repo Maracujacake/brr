@@ -16,19 +16,21 @@
 
                 <div>
                     <label for="cpf" class="block text-sm font-medium text-gray-700">CPF Cliente:</label>
-                    <input type="text" th:field="${locacao.cliente.cpf}" required
-                        class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    <p id="cpf" class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        <span th:text="${locacao.cliente.cpf}"></span>
+                    </p>
                 </div>
-
+                
                 <div>
                     <label for="cnpj" class="block text-sm font-medium text-gray-700">CNPJ Locadora:</label>
-                    <input type="text" th:field="${locacao.locadora.cnpj}" required
-                        class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    <p id="cnpj" class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        <span th:text="${locacao.locadora.cnpj}"></span>
+                    </p>
                 </div>
 
                 <div>
                     <label for="date" class="block text-sm font-medium text-gray-700">Data e Hora:</label>
-                    <input type="datetime-local" th:field="${locacao.registeredAt}"  required
+                    <input type="datetime-local" th:field="${locacao.registeredAt}" th:attr="min=${dataAtual}" max="2124-06-30T16:30"  required
                         class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                 </div>
 
