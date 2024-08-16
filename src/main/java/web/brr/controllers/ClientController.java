@@ -117,6 +117,20 @@ public class ClientController {
         locacao.setLocadora(locadora.get());
         locacao.setRegisteredAt(locacaoDate);
 
+        List<String> errors = objectValidatorService.validate(locacao);
+        if (!errors.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
+        }
+
+        // Verificar se alguem ja tem essa locacao
+        List<Locacao> locacoes = locacaoService.findLocacaoClienteByDate(locacao.getRegisteredAt(),
+                locacao.getCliente().getId().toString());
+        locacoes.addAll(locacaoService.findLocacaoLocadoraByDate(locacao.getRegisteredAt(),
+                locacao.getLocadora().getId().toString()));
+        if (!locacoes.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Já existe uma locação para essa data");
+        }
+
         locacaoService.save(locacao);
         return "redirect:registrar";
     }
