@@ -33,7 +33,7 @@
             <div>
                 <!-- Combo box for locadora selection -->
                 <label for="locadoraSelect">Selecionar Locadora:</label>
-                <select id="locadoraSelect" name="locadoraId">
+                <select id="locadoraSelect" required name="locadoraId">
                     <option value="" disabled selected>Selecione uma locadora</option>
                     <option th:each="loc : ${locadoras}" th:value="${loc.id}" th:text="${loc.nome}"></option>
                 </select>
@@ -42,7 +42,7 @@
             <div>
                 <!-- Input field for date -->
                 <label for="dateInput">Data de Locação:</label>
-                <input  type="datetime-local" id="dateInput" name="locacaoDate" required />
+                <input  type="datetime-local" id="dateInput" max="2124-06-30T16:30" name="locacaoDate" required />
             </div>
             
             <div>

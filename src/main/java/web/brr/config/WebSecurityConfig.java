@@ -54,6 +54,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/cliente/**").hasRole("CLIENTE")
                         .requestMatchers("/locadora/**").hasRole("LOCADORA")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/locacao/**").authenticated()
                         .anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin((form) -> form
