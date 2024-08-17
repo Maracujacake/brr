@@ -1,71 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Editar Perfil - Admin - Bike Rent System</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
     <style>
-        .apresentacao:hover h1,
-        .apresentacao:hover a {
-            color: #facc15;
-            transition: 1s;
-        }
-    </style>    
-</head>
-<body>
+      .apresentacao:hover h1,
+      .apresentacao:hover a {
+        color: #facc15;
+        transition: 1s;
+      }
+    </style>
+  </head>
+  <body>
     <!-- Navbar -->
-    <nav class="bg-gradient-to-r from-blue-500 to-blue-900 p-4 flex items-center justify-between">
-        <div class="text-white text-2xl font-semibold">
-            <!-- Logo Space -->
-            <a href="/"><img class="w-16 h-16" src="/imagens/logoBRR_def.png" alt=""></a>
-        </div>
-        <div class="flex-grow"></div>
-        <div class="flex space-x-4">
-            <!-- Navbar Buttons -->
-            <a href="/cliente" class="text-white hover:text-yellow-300" th:text="#{clientes}">Cliente</a>
-            <a href="/locadora" class="text-white hover:text-yellow-300" th:text="#{locadoras}">Locadora</a>
-            <a href="/admin" class="text-white hover:text-yellow-300">Admin</a>
-            <a href="/publicos/sobre" class="text-white hover:text-yellow-300" th:text="#{sobre}">Sobre</a>
-        </div>
+    <nav
+      class="bg-gradient-to-r from-blue-500 to-blue-900 p-4 flex items-center justify-between"
+    >
+      <div class="text-white text-2xl font-semibold">
+        <!-- Logo Space -->
+        <a href="/"
+          ><img class="w-16 h-16" src="/imagens/logoBRR_def.png" alt=""
+        /></a>
+      </div>
+      <div class="flex-grow"></div>
+      <div class="flex space-x-4">
+        <!-- Navbar Buttons -->
+        <a
+          href="/cliente/"
+          class="text-white hover:text-yellow-300"
+          th:text="#{clientes}"
+          >Cliente</a
+        >
+        <a
+          href="/locadora/"
+          class="text-white hover:text-yellow-300"
+          th:text="#{locadoras}"
+          >Locadora</a
+        >
+        <a href="/admin/" class="text-white hover:text-yellow-300">Admin</a>
+        <a
+          href="/publicos/sobre"
+          class="text-white hover:text-yellow-300"
+          th:text="#{sobre}"
+          >Sobre</a
+        >
+      </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="bg-cover bg-center min-h-screen" style="background-image: url('/imagens/background_index.jpg');">
-        <section class="flex items-center justify-center h-full p-8 transition duration-300 ease-in-out">
-            <!-- Edit Admin Form Section -->
-            <div class="flex flex-col max-w-lg bg-white bg-opacity-70 p-8 rounded-lg transition duration-300 ease-in-out">
-                <h1 class="text-4xl font-bold text-blue-900 mb-6" th:text="#{admin.pagina.editarPerfil}">Editar Perfil - Admin</h1>
-                <form action="/admin/editar" method="post" class="flex flex-col space-y-4">
-                    <input type="hidden" name="id" th:value="${currentUser.id}">
-                    <div>
-                        <label for="nome" class="block text-lg font-semibold text-black" th:text="#{nome}">Nome</label>
-                        <input type="text" id="nome" name="nome" th:value="${currentUser.nome}" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label for="email" class="block text-lg font-semibold text-black">Email</label>
-                        <input type="email" id="email" name="email" th:value="${currentUser.email}" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label for="senha" class="block text-lg font-semibold text-black" th:text="#{novaSenha}">Nova Senha</label>
-                        <input type="text" id="senha" name="senha" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <button type="submit" class="bg-blue-900 text-white font-semibold py-2 rounded-md hover:bg-yellow-400 transition duration-300 ease-in-out">Salvar Alterações</button>
-                </form>
+    <main
+      class="bg-cover bg-center min-h-screen"
+      style="background-image: url('/imagens/background_index.jpg')"
+    >
+      <section
+        class="flex items-center justify-center h-full p-8 transition duration-300 ease-in-out"
+      >
+        <!-- Edit Admin Form Section -->
+        <div
+          class="flex flex-col max-w-lg bg-white bg-opacity-70 p-8 rounded-lg transition duration-300 ease-in-out"
+        >
+          <h1
+            class="text-4xl font-bold text-blue-900 mb-6"
+            th:text="#{admin.pagina.editarPerfil}"
+          >
+            Editar Perfil - Admin
+          </h1>
+          <form
+            action="/admin/editar"
+            method="post"
+            class="flex flex-col space-y-4"
+          >
+            <input type="hidden" name="id" th:value="${currentUser.id}" />
+            <div>
+              <label
+                for="nome"
+                class="block text-lg font-semibold text-black"
+                th:text="#{nome}"
+                >Nome</label
+              >
+              <input
+                type="text"
+                id="nome"
+                name="nome"
+                th:value="${currentUser.nome}"
+                required
+                class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
             </div>
-        </section>
+            <div>
+              <label for="email" class="block text-lg font-semibold text-black"
+                >Email</label
+              >
+              <input
+                type="email"
+                id="email"
+                name="email"
+                th:value="${currentUser.email}"
+                required
+                class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label
+                for="senha"
+                class="block text-lg font-semibold text-black"
+                th:text="#{novaSenha}"
+                >Nova Senha</label
+              >
+              <input
+                type="text"
+                id="senha"
+                name="senha"
+                class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <button
+              type="submit"
+              class="bg-blue-900 text-white font-semibold py-2 rounded-md hover:bg-yellow-400 transition duration-300 ease-in-out"
+            >
+              Salvar Alterações
+            </button>
+          </form>
+        </div>
+      </section>
     </main>
     <script th:inline="javascript">
-         document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener("DOMContentLoaded", function () {
         function allowOnlyLetters(event) {
-                var v = event.target.value;
-                v = v.replace(/[^a-zA-Z ]/g, ""); // Replace all non-letter characters
-                event.target.value = v;
+          var v = event.target.value;
+          v = v.replace(/[^a-zA-Z ]/g, ""); // Replace all non-letter characters
+          event.target.value = v;
         }
-    
-        document.getElementById("nome").addEventListener('input', allowOnlyLetters);
 
-        });
+        document
+          .getElementById("nome")
+          .addEventListener("input", allowOnlyLetters);
+      });
     </script>
-</body>
+  </body>
 </html>
