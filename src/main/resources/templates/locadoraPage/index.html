@@ -27,7 +27,7 @@
 <body class="bg-gradient-to-r from-blue-500 to-blue-900 min-h-screen flex items-center justify-center">
     <div class="max-w-lg bg-white bg-opacity-70 p-6 rounded-lg shadow-lg text-center">
         <h1 class="text-3xl font-bold text-blue-900 mb-6" th:text=" 'Olá, ' +  ${currentUser.nome}"></h1>
-        <h1 class="text-3xl font-bold text-blue-900 mb-6">Bem vindo! </h1>
+        <h1 class="text-3xl font-bold text-blue-900 mb-6" th:text="#{bemvindo}">Bem vindo! </h1>
 
         <p class="text-lg text-black font-semibold mb-6" th:text="#{locadora.pagina.escolhas}"></p>
 
