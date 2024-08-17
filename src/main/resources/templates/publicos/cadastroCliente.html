@@ -1,107 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cadastro de Cliente - Bike Rent System</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
     <style>
-        .apresentacao:hover h1,
-        .apresentacao:hover a {
-            color: #facc15;
-            transition: 1s;
-        }
-    </style>    
-</head>
-<body>
+      .apresentacao:hover h1,
+      .apresentacao:hover a {
+        color: #facc15;
+        transition: 1s;
+      }
+    </style>
+  </head>
+  <body>
     <!-- Navbar -->
-    <nav class="bg-gradient-to-r from-blue-500 to-blue-900 p-4 flex items-center justify-between">
-        <div class="text-white text-2xl font-semibold">
-            <!-- Logo Space -->
-            <a href="/"><img class="w-16 h-16" src="/imagens/logoBRR_def.png" alt=""></a>
-        </div>
-        <div class="flex-grow"></div>
-        <div class="flex space-x-4">
-            <!-- Navbar Buttons -->
-            <a href="#" class="text-white hover:text-yellow-300">Cliente</a>
-            <a href="#" class="text-white hover:text-yellow-300">Locadora</a>
-            <a href="#" class="text-white hover:text-yellow-300">Administrador</a>
-            <a href="#" class="text-white hover:text-yellow-300">Sobre</a>
-        </div>
+    <nav
+      class="bg-gradient-to-r from-blue-500 to-blue-900 p-4 flex items-center justify-between"
+    >
+      <div class="text-white text-2xl font-semibold">
+        <!-- Logo Space -->
+        <a href="/"
+          ><img class="w-16 h-16" src="/imagens/logoBRR_def.png" alt=""
+        /></a>
+      </div>
+      <div class="flex-grow"></div>
+      <div class="flex space-x-4">
+        <!-- Navbar Buttons -->
+        <a href="#" class="text-white hover:text-yellow-300">Cliente</a>
+        <a href="#" class="text-white hover:text-yellow-300">Locadora</a>
+        <a href="#" class="text-white hover:text-yellow-300">Administrador</a>
+        <a href="#" class="text-white hover:text-yellow-300">Sobre</a>
+      </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="bg-cover bg-center min-h-screen" style="background-image: url('/imagens/background_index.jpg');">
-        <section class="flex items-center justify-center h-full p-8 transition duration-300 ease-in-out">
-            <!-- Cadastro Form Section -->
-            <div class="flex flex-col max-w-lg bg-white bg-opacity-70 p-8 rounded-lg transition duration-300 ease-in-out">
-                <h1 class="text-4xl font-bold text-blue-900 mb-6">Cadastro de Cliente</h1>
-                <form action="/publicos/cliente/cadastrar" method="post" class="flex flex-col space-y-4">
-                    <div>
-                        <label for="nome" class="block text-lg font-semibold text-black">Nome</label>
-                        <input type="text" id="nome" name="nome" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label for="email" class="block text-lg font-semibold text-black">Email</label>
-                        <input type="email" id="email" name="email" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label for="senha" class="block text-lg font-semibold text-black">Senha</label>
-                        <input type="password" id="senha" name="senha" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label for="telefone" class="block text-lg font-semibold text-black">Telefone</label>
-                        <input type="text" id="telefone" placeholder="(xx) xxxxx-xxxx" name="telefone" maxlength="15" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label for="cpf" class="block text-lg font-semibold text-black">CPF</label>
-                        <input type="text" id="cpf" name="cpf" maxlength="14" placeholder="xxx.xxx.xxx-xx" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label for="sexo" class="block text-lg font-semibold text-black">Sexo</label>
-                        <select id="sexo" name="sexo" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option value="M">Homem</option>
-                            <option value="F">Mulher</option>
-                            <option value="O">Outro</option>
-                            <option value="N">Não identificar</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="DataNascimento" class="block text-lg font-semibold text-black">Data de Nascimento</label>
-                        <input type="date" id="DataNascimento" name="DataNascimento" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <button type="submit" class="bg-blue-900 text-white font-semibold py-2 rounded-md hover:bg-yellow-400 transition duration-300 ease-in-out">Cadastrar</button>
-                </form>
+    <main
+      class="bg-cover bg-center min-h-screen"
+      style="background-image: url('/imagens/background_index.jpg')"
+    >
+      <section
+        class="flex items-center justify-center h-full p-8 transition duration-300 ease-in-out"
+      >
+        <!-- Cadastro Form Section -->
+        <div
+          class="flex flex-col max-w-lg bg-white bg-opacity-70 p-8 rounded-lg transition duration-300 ease-in-out"
+        >
+          <h1 class="text-4xl font-bold text-blue-900 mb-6">
+            Cadastro de Cliente
+          </h1>
+          <form
+            action="/publicos/cliente/cadastrar"
+            method="post"
+            class="flex flex-col space-y-4"
+          >
+            <div>
+              <label for="nome" class="block text-lg font-semibold text-black"
+                >Nome</label
+              >
+              <input
+                type="text"
+                id="nome"
+                name="nome"
+                required
+                class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
             </div>
-        </section>
+            <div>
+              <label for="email" class="block text-lg font-semibold text-black"
+                >Email</label
+              >
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label for="senha" class="block text-lg font-semibold text-black"
+                >Senha</label
+              >
+              <input
+                type="password"
+                id="senha"
+                name="senha"
+                required
+                class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label
+                for="telefone"
+                class="block text-lg font-semibold text-black"
+                >Telefone</label
+              >
+              <input
+                type="text"
+                id="telefone"
+                placeholder="(xx) xxxxx-xxxx"
+                name="telefone"
+                maxlength="15"
+                required
+                class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label for="cpf" class="block text-lg font-semibold text-black"
+                >CPF</label
+              >
+              <input
+                type="text"
+                id="cpf"
+                name="cpf"
+                maxlength="14"
+                placeholder="xxx.xxx.xxx-xx"
+                required
+                class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label for="sexo" class="block text-lg font-semibold text-black"
+                >Sexo</label
+              >
+              <select
+                id="sexo"
+                name="sexo"
+                required
+                class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="M">Homem</option>
+                <option value="F">Mulher</option>
+                <option value="O">Outro</option>
+                <option value="N">Não identificar</option>
+              </select>
+            </div>
+            <div>
+              <label
+                for="DataNascimento"
+                class="block text-lg font-semibold text-black"
+                >Data de Nascimento</label
+              >
+              <input
+                type="date"
+                id="DataNascimento"
+                name="DataNascimento"
+                required
+                class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <button
+              type="submit"
+              class="bg-blue-900 text-white font-semibold py-2 rounded-md hover:bg-yellow-400 transition duration-300 ease-in-out"
+            >
+              Cadastrar
+            </button>
+          </form>
+        </div>
+      </section>
     </main>
     <script th:inline="javascript">
-         document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener("DOMContentLoaded", function () {
         function applyPhoneMask(event) {
-            var v = event.target.value.replace(/\D/g, "");
-            v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
-            v = v.replace(/(\d{5})(\d)/, "$1-$2");
-            event.target.value = v;
+          var v = event.target.value.replace(/\D/g, "");
+          v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
+          v = v.replace(/(\d{5})(\d)/, "$1-$2");
+          event.target.value = v;
         }
-    
-        function applyCpfMask(event) {
-            var v = event.target.value.replace(/\D/g, "");
-            v = v.replace(/^(\d{3})(\d)/, "$1.$2");
-            v = v.replace(/(\d{3})(\d)/, "$1.$2");
-            v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-            event.target.value = v;
-        }
-        function allowOnlyLetters(event) {
-                var v = event.target.value;
-                v = v.replace(/[^a-zA-Z ]/g, ""); // Replace all non-letter characters
-                event.target.value = v;
-        }
-    
-        document.getElementById("telefone").addEventListener('input', applyPhoneMask);
-        document.getElementById("cpf").addEventListener('input', applyCpfMask);
-        document.getElementById("nome").addEventListener('input', allowOnlyLetters);
 
-        });
+        function applyCpfMask(event) {
+          var v = event.target.value.replace(/\D/g, "");
+          v = v.replace(/^(\d{3})(\d)/, "$1.$2");
+          v = v.replace(/(\d{3})(\d)/, "$1.$2");
+          v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+          event.target.value = v;
+        }
+
+        function allowOnlyLetters(event) {
+          var v = event.target.value;
+          v = v.replace(/[^a-zA-Z ]/g, ""); // Replace all non-letter characters
+          event.target.value = v;
+        }
+
+        document
+          .getElementById("telefone")
+          .addEventListener("input", applyPhoneMask);
+        document.getElementById("cpf").addEventListener("input", applyCpfMask);
+        document
+          .getElementById("nome")
+          .addEventListener("input", allowOnlyLetters);
+      });
     </script>
-</body>
+  </body>
 </html>
