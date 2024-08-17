@@ -54,6 +54,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/cliente/**").hasRole("CLIENTE")
                         .requestMatchers("/locadora/**").hasRole("LOCADORA")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/locacao/**").authenticated()
                         .anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin((form) -> form
@@ -61,6 +62,9 @@ public class WebSecurityConfig {
                         .successHandler(customAuthenticationSuccessHandler) // Use the custom success handler
                         .permitAll())
                 .logout((logout) -> logout
+                        .logoutUrl("/logout")
+                        .invalidateHttpSession(true) // Invalidate session
+                        .deleteCookies("JSESSIONID")
                         .logoutSuccessUrl("/").permitAll());
 
         return http.build();

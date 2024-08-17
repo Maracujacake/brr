@@ -12,10 +12,9 @@ public class ValidatorService {
     private final List<DataValidatorServiceSpec> validators;
     private String attrName = null;
 
-    public String getAttrName(){
+    public String getAttrName() {
         return attrName;
     }
-
 
     public ValidatorService() {
         this.validators = new ArrayList<DataValidatorServiceSpec>();
@@ -30,6 +29,7 @@ public class ValidatorService {
         for (DataValidatorServiceSpec validator : validators) {
             if (validator.supports(target.getClass())) {
                 errors.addAll(validator.validate(target));
+                break;
             }
         }
         if (errors.isEmpty()) {
@@ -44,12 +44,13 @@ public class ValidatorService {
         for (DataValidatorServiceSpec validator : validators) {
             if (validator.supports(target.getClass(), attrName)) {
                 errors.addAll(validator.validate(target));
+                break;
             }
         }
         if (!errors.isEmpty()) {
             System.out.println(target.getClass().getName());
         }
         return errors;
-       
+
     }
 }

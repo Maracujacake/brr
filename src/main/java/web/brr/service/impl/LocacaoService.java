@@ -1,5 +1,6 @@
 package web.brr.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,49 +12,48 @@ import web.brr.repositories.LocacaoRep;
 import web.brr.service.spec.LocacaoServiceSpec;
 
 @Service
-public class LocacaoService implements LocacaoServiceSpec{
+public class LocacaoService implements LocacaoServiceSpec {
 
     @Autowired
     private LocacaoRep locacaoRep;
 
-
-    public Locacao save(Locacao Locacao){
-       return  locacaoRep.save(Locacao);
+    public Locacao save(Locacao Locacao) {
+        return locacaoRep.save(Locacao);
     }
 
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         locacaoRep.deleteById(id);
     }
 
-    public List<Locacao> findAll(){
+    public List<Locacao> findAll() {
         return locacaoRep.findAll();
     }
 
-    public Optional<Locacao> findById(Long id){
+    public Optional<Locacao> findById(Long id) {
         return locacaoRep.findById(id);
     }
 
-    public List<Locacao> findClienteRegistrations(String id){
+    public List<Locacao> findClienteRegistrations(String id) {
         return locacaoRep.findClienteRegistrations(id);
     }
 
-    public List<Locacao> findLocadoraRegistrations(String id){
+    public List<Locacao> findLocadoraRegistrations(String id) {
         return locacaoRep.findLocadoraRegistrations(id);
     }
 
     public List<Locacao> findClienteAndLocadoraRegistrations(String idCliente,
-            String idLocadora){
-                return locacaoRep.findClienteAndLocadoraRegistrations(idCliente, idLocadora);
-            }
+            String idLocadora) {
+        return locacaoRep.findClienteAndLocadoraRegistrations(idCliente, idLocadora);
+    }
 
-    public List<Locacao> findLocacaoLocadoraByDate(String registeredAt,
-            String idLocadora){
-                return locacaoRep.findLocacaoLocadoraByDate(registeredAt, idLocadora);
-            }
+    public List<Locacao> findLocacaoLocadoraByDate(LocalDateTime registeredAt,
+            String idLocadora) {
+        return locacaoRep.findLocacaoLocadoraByDate(registeredAt, idLocadora);
+    }
 
-    public List<Locacao> findLocacaoClienteByDate(String registeredAt,
-            String idCliente){
+    public List<Locacao> findLocacaoClienteByDate(LocalDateTime registeredAt,
+            String idCliente) {
 
-                return locacaoRep.findLocacaoClienteByDate(registeredAt, idCliente);
+        return locacaoRep.findLocacaoClienteByDate(registeredAt, idCliente);
     }
 }

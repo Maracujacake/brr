@@ -1,6 +1,5 @@
 package web.brr.service.spec;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -8,7 +7,7 @@ import web.brr.domains.Cliente;
 import web.brr.domains.Locacao;
 
 public interface ClienteServiceSpec {
-    Cliente save(Cliente user);
+    Cliente save(Cliente user, Boolean update);
 
     void deleteById(Long id);
 
@@ -24,4 +23,5 @@ public interface ClienteServiceSpec {
 
     Optional<Cliente> findByTelefone(String telefone);
 
+    List<Cliente> findByEmailOrCpfOrTelefone(String email, String cpf, String telefone);
 }

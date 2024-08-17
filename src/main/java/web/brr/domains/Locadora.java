@@ -29,7 +29,7 @@ public class Locadora extends User {
     @Column(nullable = false, unique = true, length = 100)
     private String cnpj;
 
-    @OneToMany(mappedBy = "locadora",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "locadora", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<Locacao> registrations = new HashSet<>();
 
     public Set<Locacao> getRegistrations() {
