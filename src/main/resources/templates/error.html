@@ -1,30 +1,58 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity"
-	layout:decorate="~{fragments/layout}">
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity"
+    layout:decorate="~{fragments/layout}">
 <head>
-<title th:text="#{error.page.title}"></title>
+    <title th:text="#{error.page.title}"></title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1e3a8a; /* Dark Blue */
+        }
+        .error-container {
+            background-color: white; /* White box */
+            max-width: 600px;
+            margin: 50px auto; /* Center the box */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .h1 {
+            color: #1e3a8a; /* Dark Blue */
+        }
+        h2 {
+            color: #facc15; /* Golden Yellow */
+        }
+        .btn-primary {
+            background-color: #1e3a8a; /* Dark Blue */
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #facc15; /* Golden Yellow */
+            color: #1e3a8a;
+        }
+    </style>
 </head>
 <body>
-	<div layout:fragment="content" th:remove="tag">
+    <div layout:fragment="content" th:remove="tag">
+        <div class="error-container">
+            <h1 class="mb-3 font-weight-normal text-xl text-red-600">
+                <span th:text="${status}"></span>
+            </h1>
 
+            <h2 class="h1" th:text="#{${error}}"></h2>
 
+            <hr />
 
-		<h1 class="h3 mb-3 font-weight-normal">
-			<span th:text="${status}"></span>
-		</h1>
-
-		<h2 th:text="#{${error}}"></h2>
-
-		<hr />
-
-		<div>
-			<span th:text="${CustomMessage} ?: #{${message}}"></span><br />
-			<br /> <a class="btn btn-primary" type="button"
-				href="javascript:history.back()"><span th:text="#{previous.message}"></span></a>
-		</div>
-
-	</div>
+            <div>
+                <span th:text="${CustomMessage} ?: #{${message}}"></span><br /><br />
+                <a class="py-3 px-6 btn btn-primary" type="button" href="javascript:history.back()">
+                    <span th:text="#{previous.message}"></span>
+                </a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

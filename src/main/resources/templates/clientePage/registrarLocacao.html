@@ -1,59 +1,114 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
     <title th:text="#{cliente.pagina.titulo}"></title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
     <style>
-        .opcao {
-            background-color: rgba(255, 255, 255, 0.8);
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-        .opcao:hover {
-            background-color: rgba(250, 204, 21, 0.9);
-            transform: scale(1.05);
-        }
-        .opcaoInicio {
-            background-color: rgba(169, 169, 169, 0.8);
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-        .opcaoInicio:hover {
-            background-color: rgba(250, 204, 21, 0.9);
-            transform: scale(1.05);
-        }
+      .opcao {
+        background-color: rgba(255, 255, 255, 0.8);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
+
+      .opcao:hover {
+        background-color: rgba(250, 204, 21, 0.9);
+        transform: scale(1.05);
+      }
+
+      .opcaoInicio {
+        background-color: rgba(169, 169, 169, 0.8);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
+
+      .opcaoInicio:hover {
+        background-color: rgba(250, 204, 21, 0.9);
+        transform: scale(1.05);
+      }
     </style>
-</head>
-<body>
-    <div>
-        <h1>Registrar Nova Locação</h1>
-        
-        <!-- Form to register a new locação -->
-        <form action="registrar" method="post" class="flex flex-col space-y-4">
-            <div>
-                <!-- Combo box for locadora selection -->
-                <label for="locadoraSelect">Selecionar Locadora:</label>
-                <select id="locadoraSelect" required name="locadoraId">
-                    <option value="" disabled selected>Selecione uma locadora</option>
-                    <option th:each="loc : ${locadoras}" th:value="${loc.id}" th:text="${loc.nome}"></option>
-                </select>
-            </div>
-            
-            <div>
-                <!-- Input field for date -->
-                <label for="dateInput">Data de Locação:</label>
-                <input  type="datetime-local" id="dateInput" max="2124-06-30T16:30" name="locacaoDate" required />
-            </div>
-            
-            <div>
-                <!-- Submit button -->
-                <button type="submit">Registrar</button>
-            </div>
-            
-            <a th:href="@{/}" class="text-black-500 hover:underline"
-            >Voltar à página inicial</a
-          >            <!-- TODO : Botão para voltar para a pagina de locacoes-->
-        </form>
+  </head>
+
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+      <h1
+        class="text-2xl font-bold text-gray-800 mb-6 text-center"
+        th:text="#{cliente.addLocacao}"
+      >
+        Registrar Nova Locação
+      </h1>
+
+      <!-- Form to register a new locação -->
+      <form action="registrar" method="post" class="flex flex-col space-y-4">
+        <div>
+          <!-- Combo box for locadora selection -->
+          <label
+            for="locadoraSelect"
+            class="block text-gray-700 mb-2"
+            th:text="#{cliente.selecioneLocadoraTitulo}"
+            >Selecionar Locadora:</label
+          >
+          <select
+            id="locadoraSelect"
+            name="locadoraId"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            required
+          >
+            <option
+              value=""
+              disabled
+              selected
+              th:text="#{cliente.selecioneLocadora}"
+            >
+              Selecione uma locadora
+            </option>
+            <option
+              th:each="loc:${locadoras}"
+              th:value="${loc.id}"
+              th:text="${loc.nome}"
+            ></option>
+          </select>
+        </div>
+
+        <div>
+          <!-- Input field for date -->
+          <label
+            for="dateInput"
+            class="block text-gray-700 mb-2"
+            th:text="#{locacao.data}"
+            >Data de Locação:</label
+          >
+          <input
+            type="datetime-local"
+            id="dateInput"
+            name="locacaoDate"
+            max="2124-06-30T16:30"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            required
+          />
+        </div>
+
+        <div class="flex justify-between items-center">
+          <!-- Submit button -->
+          <button
+            type="submit"
+            class="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition-colors duration-300"
+            th:text="#{register}"
+          >
+            Registrar
+          </button>
+
+          <!-- Back to locações button -->
+          <a
+            href="/cliente/locacao"
+            class="text-yellow-500 hover:underline"
+            th:text="#{locacao.voltarLocacoes}"
+            >Voltar às Locações</a
+          >
+        </div>
+      </form>
     </div>
-</body>
+  </body>
 </html>

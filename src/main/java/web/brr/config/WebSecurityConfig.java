@@ -62,6 +62,9 @@ public class WebSecurityConfig {
                         .successHandler(customAuthenticationSuccessHandler) // Use the custom success handler
                         .permitAll())
                 .logout((logout) -> logout
+                        .logoutUrl("/logout")
+                        .invalidateHttpSession(true) // Invalidate session
+                        .deleteCookies("JSESSIONID")
                         .logoutSuccessUrl("/").permitAll());
 
         return http.build();

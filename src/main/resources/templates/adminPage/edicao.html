@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cadastro de Cliente - Bike Rent System</title>
+    <title>Editar Perfil - Admin - Bike Rent System</title>
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
@@ -60,26 +60,34 @@
       <section
         class="flex items-center justify-center h-full p-8 transition duration-300 ease-in-out"
       >
-        <!-- Cadastro Form Section -->
+        <!-- Edit Admin Form Section -->
         <div
           class="flex flex-col max-w-lg bg-white bg-opacity-70 p-8 rounded-lg transition duration-300 ease-in-out"
         >
-          <h1 class="text-4xl font-bold text-blue-900 mb-6">
-            Cadastro de Cliente
+          <h1
+            class="text-4xl font-bold text-blue-900 mb-6"
+            th:text="#{admin.pagina.editarPerfil}"
+          >
+            Editar Perfil - Admin
           </h1>
           <form
-            action="/publicos/cliente/cadastrar"
+            action="/admin/editar"
             method="post"
             class="flex flex-col space-y-4"
           >
+            <input type="hidden" name="id" th:value="${currentUser.id}" />
             <div>
-              <label for="nome" class="block text-lg font-semibold text-black"
+              <label
+                for="nome"
+                class="block text-lg font-semibold text-black"
+                th:text="#{nome}"
                 >Nome</label
               >
               <input
                 type="text"
                 id="nome"
                 name="nome"
+                th:value="${currentUser.nome}"
                 required
                 class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
@@ -92,79 +100,22 @@
                 type="email"
                 id="email"
                 name="email"
+                th:value="${currentUser.email}"
                 required
                 class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <div>
-              <label for="senha" class="block text-lg font-semibold text-black"
-                >Senha</label
+              <label
+                for="senha"
+                class="block text-lg font-semibold text-black"
+                th:text="#{novaSenha}"
+                >Nova Senha</label
               >
               <input
-                type="password"
+                type="text"
                 id="senha"
                 name="senha"
-                required
-                class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <label
-                for="telefone"
-                class="block text-lg font-semibold text-black"
-                >Telefone</label
-              >
-              <input
-                type="text"
-                id="telefone"
-                placeholder="(xx) xxxxx-xxxx"
-                name="telefone"
-                maxlength="15"
-                required
-                class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <label for="cpf" class="block text-lg font-semibold text-black"
-                >CPF</label
-              >
-              <input
-                type="text"
-                id="cpf"
-                name="cpf"
-                maxlength="14"
-                placeholder="xxx.xxx.xxx-xx"
-                required
-                class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <label for="sexo" class="block text-lg font-semibold text-black"
-                >Sexo</label
-              >
-              <select
-                id="sexo"
-                name="sexo"
-                required
-                class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="M">Homem</option>
-                <option value="F">Mulher</option>
-                <option value="O">Outro</option>
-                <option value="N">Não identificar</option>
-              </select>
-            </div>
-            <div>
-              <label
-                for="DataNascimento"
-                class="block text-lg font-semibold text-black"
-                >Data de Nascimento</label
-              >
-              <input
-                type="date"
-                id="DataNascimento"
-                name="DataNascimento"
-                required
                 class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -172,7 +123,7 @@
               type="submit"
               class="bg-blue-900 text-white font-semibold py-2 rounded-md hover:bg-yellow-400 transition duration-300 ease-in-out"
             >
-              Cadastrar
+              Salvar Alterações
             </button>
           </form>
         </div>
@@ -180,31 +131,12 @@
     </main>
     <script th:inline="javascript">
       document.addEventListener("DOMContentLoaded", function () {
-        function applyPhoneMask(event) {
-          var v = event.target.value.replace(/\D/g, "");
-          v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
-          v = v.replace(/(\d{5})(\d)/, "$1-$2");
-          event.target.value = v;
-        }
-
-        function applyCpfMask(event) {
-          var v = event.target.value.replace(/\D/g, "");
-          v = v.replace(/^(\d{3})(\d)/, "$1.$2");
-          v = v.replace(/(\d{3})(\d)/, "$1.$2");
-          v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-          event.target.value = v;
-        }
-
         function allowOnlyLetters(event) {
           var v = event.target.value;
           v = v.replace(/[^a-zA-Z ]/g, ""); // Replace all non-letter characters
           event.target.value = v;
         }
 
-        document
-          .getElementById("telefone")
-          .addEventListener("input", applyPhoneMask);
-        document.getElementById("cpf").addEventListener("input", applyCpfMask);
         document
           .getElementById("nome")
           .addEventListener("input", allowOnlyLetters);

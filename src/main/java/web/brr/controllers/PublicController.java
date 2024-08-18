@@ -118,4 +118,14 @@ public class PublicController {
 
         return "index";
     }
+
+    @GetMapping("/sobre")
+    public String showSobre() {
+        return "publicos/sobre";
+    }
+
+    @GetMapping("/painelLocadora")
+    public String showPainelLocadora() {
+        return "publicos/telaInicialLocadora";
+    }
 }
