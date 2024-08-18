@@ -1,5 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bike Rent System</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <style>
+            .apresentacao:hover {
+                border: 2px solid #facc15; 
+                background-color: rgba(30, 58, 138, 0.6); 
+            }
+    
+            .apresentacao:hover h1,
+            .apresentacao:hover a {
+                color: #facc15; 
+            }
+        </style>
+           <script th:inline="javascript">
+            function confirmLogout(event) {
+              var logoutMessage =
+                /*[[#{delete.logout.message}]]*/ "Are you sure you want to logout of this page?";
+              if (!confirm(logoutMessage)) {
+                event.preventDefault(); // Prevents the form from being submitted
+              }
+            }
+          </script>
+    </head>
+    <body>
+        <!-- Navbar -->
+        <nav class="bg-gradient-to-r from-yellow-200 to-yellow-600 p-4 flex items-center justify-between">
+            <div class="text-white text-2xl font-semibold">
+                <!-- Logo Space -->
+                <a href="/"><img class="w-16 h-16" src="/imagens/logoBRR_def.png" alt=""></a>
+            </div>
+            <div class="flex space-x-10">
+                <!-- Navbar Buttons -->
+                <a href="/logout" class="text-white hover:text-yellow-300" onclick="confirmLogout(event)">Logout</a>
+            </div>
+        </nav>
+<head>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,25 +63,26 @@
         }
     </style>
 </head>
-<body class="bg-gradient-to-r from-blue-500 to-blue-900 min-h-screen flex items-center justify-center">
-    <div class="max-w-lg bg-white bg-opacity-70 p-6 rounded-lg shadow-lg text-center">
-        <h1 class="text-3xl font-bold text-blue-900 mb-6" th:text=" 'Bem vindo! Olá, ' +  ${currentUser.nome}">User</h1>
-        <p class="text-lg text-black font-semibold mb-6" th:text="#{admin.pagina.escolhas}"></p>
+<div class="bg-gradient-to-r from-blue-500 to-blue-900 min-h-screen flex items-center justify-center">
+        <div class="max-w-lg bg-white bg-opacity-70 p-6 rounded-lg shadow-lg text-center">
+            <h1 class="text-3xl font-bold text-blue-900 mb-6" th:text=" 'Bem vindo! Olá, ' +  ${currentUser.nome}">User</h1>
+            <p class="text-lg text-black font-semibold mb-6" th:text="#{admin.pagina.escolhas}"></p>
 
-        <div class="space-y-4">
-            <a href="locacao" class="opcao block p-4 rounded-lg text-blue-900 font-semibold text-xl"
-            th:text="#{admin.pagina.locacoes}"> </a>
+            <div class="space-y-4">
+                <a href="locacao" class="opcao block p-4 rounded-lg text-blue-900 font-semibold text-xl"
+                th:text="#{admin.pagina.locacoes}"> </a>
 
-            <a href="/admin/editar" class="opcao block p-4 rounded-lg text-blue-900 font-semibold text-xl"
-            th:text="#{admin.pagina.dados}">
-            </a>
-            <a href="/publicos/locadora" class="opcao block p-4 rounded-lg text-blue-900 font-semibold text-xl"
-            th:text="#{admin.pagina.locadoras}">
-            </a>
-            <a href="/" class="opcaoInicio block p-4 rounded-lg text-blue-900 font-semibold text-xl"
-            th:text="#{admin.pagina.voltarInicio}">
-            </a>
+                <a href="/admin/editar" class="opcao block p-4 rounded-lg text-blue-900 font-semibold text-xl"
+                th:text="#{admin.pagina.dados}">
+                </a>
+                <a href="/publicos/locadora" class="opcao block p-4 rounded-lg text-blue-900 font-semibold text-xl"
+                th:text="#{admin.pagina.locadoras}">
+                </a>
+                <a href="/" class="opcaoInicio block p-4 rounded-lg text-blue-900 font-semibold text-xl"
+                th:text="#{admin.pagina.voltarInicio}">
+                </a>
+            </div>
         </div>
     </div>
-</body>
+</div>
 </html>
