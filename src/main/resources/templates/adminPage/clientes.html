@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clientes</title>
+</head>
+<body>
+    <h1>Lista de Clientes</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Deleção</th>
+                <th>Atualização</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Loop through the clientes list -->
+            <th:block th:each="cliente : ${clientes}">
+                <tr>
+                    <td th:text="${cliente.nome}"></td>
+                    <td th:text="${cliente.email}"></td>
+                    <td th:text="${cliente.telefone}"></td>
+                    <td><a th:href="@{/admin/excluirCliente(clienteId=${cliente.id})}">Deletar</a></td>
+                    <td><a th:href="@{/admin/atualizarCliente(clienteId=${cliente.id})}">Atualizar</a></td>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+</body>
+</html>

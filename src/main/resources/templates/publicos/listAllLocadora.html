@@ -29,10 +29,8 @@
                             <td class="border border-gray-300 px-4 py-2" th:text="${locadora.cnpj}"></td>
                             <td class="border border-gray-300 px-4 py-2" th:text="${locadora.email}"></td>
                             <td class="border border-gray-300 px-4 py-2">
-                                <!-- TODO : Verificar integrações para atualizar e deletar
-                                <a th:href="@{/admin/editarLocadora(id=${locadora.id})}" class="text-blue-500 hover:underline" th:text="#{atualizar}"></a>
-                                <a th:href="@{/admin/deletarLocadora(id=${locadora.id})}" class="text-red-500 hover:underline ml-2 delete-link" th:text="#{deletar}"></a>
-                                -->
+                            <a th:href="@{/admin/atualizarLocadora(locadoraId=${locadora.id})}" class="text-blue-500 hover:underline" th:text="#{atualizar}"></a>
+                            <a th:href="@{/admin/excluirLocadora(locadoraId=${locadora.id})}" class="text-red-500 hover:underline ml-2 delete-link" th:text="#{deletar}"></a>
                             </td>
                         </tr>
                     </tbody>

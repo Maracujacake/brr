@@ -6,8 +6,12 @@ import java.util.Optional;
 import web.brr.domains.Cliente;
 import web.brr.domains.Locacao;
 import web.brr.domains.Admin;
+import web.brr.domains.Locadora;
 
 public interface AdminServiceSpec {
+    // cliente
+    Cliente save(Cliente user, Boolean update);
+
     void deleteClienteById(Long id);
 
     List<Cliente> findAllClients();
@@ -21,6 +25,20 @@ public interface AdminServiceSpec {
     Optional<Cliente> findClienteByCpf(String cpf);
 
     Optional<Cliente> findClienteByTelefone(String telefone);
+
+    // locadora
+    void deleteLocadoraById(Long id);
+
+    Optional<Locadora> findLocadoraById(Long id);
+
+    Optional<Locadora> findLocadoraByEmail(String cnpj);
+
+    List<Locacao> All_Locacoes_Locadora(String id);
+
+    Locadora save(Locadora locadora, Boolean update);
+
+
+    // admin
 
     Optional<Admin> findByEmail(String email);
 
