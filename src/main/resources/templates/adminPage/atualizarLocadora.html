@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title th:text="#{locadora.pagina.titulo}"></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .opcao {
+            background-color: rgba(255, 255, 255, 0.8);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .opcao:hover {
+            background-color: rgba(250, 204, 21, 0.9);
+            transform: scale(1.05);
+        }
+        .opcaoInicio {
+            background-color: rgba(169, 169, 169, 0.8);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .opcaoInicio:hover {
+            background-color: rgba(250, 204, 21, 0.9);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="flex justify-center items-center h-screen">
+        <div class="max-w-lg w-full p-8 bg-white rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 my-8 text-center" th:text="#{locadora.editarLoc}">Editar Locadora</h2>
+            <form th:action="@{/admin/atualizarLocadora}" method="post" class="space-y-4">
+
+                <input type="hidden" name="id" th:value="${locadora.id}">
+                <input type="hidden" name="cnpj" th:value="${locadora.cnpj}">
+
+                <div>
+                    <label for="nome" class="block text-sm font-medium text-gray-700" th:text="#{nome}">Nome</label>
+                    <input type="text" name="nome" th:value="${locadora.nome}" required class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email:</label>
+                    <input type="text" name="email" th:value="${locadora.email}" required class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <div>
+                    <label for="cidade" class="block text-sm font-medium text-gray-700" th:text="#{cidade}">Cidade</label>
+                    <input type="text" name="cidade" th:value="${locadora.cidade}" required class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <div>
+                    <label for="senha" class="block text-sm font-medium text-gray-700" th:text="#{senha}">Senha</label>
+                    <input type="text" name="senha" class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder=" ">
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md
+                     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" th:text="#{atualizar}">Atualizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

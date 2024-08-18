@@ -5,4 +5,5 @@ INSERT INTO user (id, nome, email, senha, role) VALUES
 INSERT INTO admin (id, privelegios) VALUES 
 (10, 'alguns ai');
 
-UPDATE user SET senha = '$2a$10$i4HFzyCRjd5KfAaR2NVFqeG2fGsrQVf.KDOPHyiunLRCWm9UaC.kK' WHERE id = 10;
+-- senha: pedro 
+UPDATE user SET senha = '$2a$10$KsdBeBDVYXaT4HZkvKjA9uly13r1.fxBwNJF7teGpkS2u/XkPKdwG' WHERE id = 10;

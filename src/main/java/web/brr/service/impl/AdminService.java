@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 import web.brr.domains.Admin;
 import web.brr.domains.Cliente;
 import web.brr.domains.Locacao;
+import web.brr.domains.Locadora;
 import web.brr.encrypt.EncryptPassword;
 import web.brr.repositories.AdminRep;
 import web.brr.repositories.ClienteRep;
+import web.brr.repositories.LocadoraRep;
 import web.brr.service.spec.AdminServiceSpec;
 
 @Service
@@ -21,9 +23,23 @@ public class AdminService implements AdminServiceSpec {
     ClienteRep clienteRep;
 
     @Autowired
+    LocadoraRep locadoraRep;
+
+    @Autowired
     AdminRep adminRep;
 
     // Métodos de cliente
+    @Override
+    public Cliente save(Cliente Cliente, Boolean update) {
+        if (update){
+            Cliente.setRole("ROLE_CLIENTE");
+            return clienteRep.save(Cliente);
+        }
+        Cliente.setSenha(EncryptPassword.encrypt(Cliente.getSenha()));
+        Cliente.setRole("ROLE_CLIENTE");
+        return clienteRep.save(Cliente);
+    }
+
     @Override
     public void deleteClienteById(Long id) {
         clienteRep.deleteById(id);
@@ -58,6 +74,39 @@ public class AdminService implements AdminServiceSpec {
     public Optional<Cliente> findClienteByTelefone(String telefone) {
         return clienteRep.findByTelefone(telefone);
     }
+
+    // Métodos de locadora
+    @Override
+    public Locadora save(Locadora locadora, Boolean update) {
+        if (update)
+            return locadoraRep.save(locadora);
+
+        locadora.setSenha(EncryptPassword.encrypt(locadora.getSenha()));
+        locadora.setRole("ROLE_LOCADORA");
+        return locadoraRep.save(locadora);
+    }
+
+
+    @Override
+    public void deleteLocadoraById(Long id) {
+        locadoraRep.deleteById(id);
+    }
+
+    @Override
+    public List<Locacao> All_Locacoes_Locadora(String id) {
+        return locadoraRep.findRegistrations(id);
+    }
+
+    @Override
+    public Optional<Locadora> findLocadoraById(Long id) {
+        return locadoraRep.findById(id);
+    }
+
+    @Override
+    public Optional<Locadora> findLocadoraByEmail(String email) {
+        return locadoraRep.findByEmail(email);
+    }
+
 
     // Métodos de admin
     public Optional<Admin> findByEmail(String email) {
