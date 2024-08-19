@@ -20,13 +20,15 @@
             <!-- Logo Space -->
             <a href="/"><img class="w-16 h-16" src="/imagens/logoBRR_def.png" alt=""></a>
         </div>
-        <div class="flex-grow"></div>
+        <div class="flex-grow">
+            <a href="/publicos/locadora" class="text-white hover:text-yellow-300 p-4" th:text="#{locadora.ver}">Ver Locadoras</a>
+        </div>
         <div class="flex space-x-4">
             <!-- Navbar Buttons -->
-            <a href="#" class="text-white hover:text-yellow-300">Cliente</a>
-            <a href="#" class="text-white hover:text-yellow-300">Locadora</a>
-            <a href="#" class="text-white hover:text-yellow-300">Administrador</a>
-            <a href="#" class="text-white hover:text-yellow-300">Sobre</a>
+            <a href="/cliente/" class="text-white hover:text-yellow-300" th:text="#{cliente}">Cliente</a>
+            <a href="/publicos/painelLocadora" class="text-white hover:text-yellow-300" th:text="#{locadoras}">Locadora</a>
+            <a href="/admin/" class="text-white hover:text-yellow-300" th:text="#{admin}">Administrador</a>
+            <a href="/publicos/sobre" class="text-white hover:text-yellow-300" th:text="#{sobre}">Sobre</a>
         </div>
     </nav>
 
@@ -57,7 +59,7 @@
                         <label for="cnpj" class="block text-lg font-semibold text-black">CNPJ</label>
                         <input type="text" id="cnpj" maxlength="18" name="cnpj" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
-                    <button type="submit" class="bg-blue-900 text-white font-semibold py-2 rounded-md hover:bg-yellow-400 transition duration-300 ease-in-out">Cadastrar</button>
+                    <button type="submit" class="bg-blue-900 text-white font-semibold py-2 rounded-md hover:bg-yellow-400 transition duration-300 ease-in-out"th:text="#{cadastrar}">Cadastrar</button>
                 </form>
             </div>
         </section>
