@@ -25,14 +25,14 @@
             <a href="/"><img class="w-16 h-16" src="/imagens/logoBRR_def.png" alt=""></a>
         </div>
         <div class="flex-grow">
-            <a href="/publicos/locadora" class="text-white hover:text-yellow-300 p-4">Ver Locadoras</a>
+            <a href="/publicos/locadora" class="text-white hover:text-yellow-300 p-4" th:text="#{locadora.ver}">Ver Locadoras</a>
         </div>
         <div class="flex space-x-4">
             <!-- Navbar Buttons -->
-            <a href="/cliente/" class="text-white hover:text-yellow-300">Cliente</a>
-            <a href="/publicos/painelLocadora" class="text-white hover:text-yellow-300">Locadora</a>
-            <a href="/admin/" class="text-white hover:text-yellow-300">Administrador</a>
-            <a href="/publicos/sobre" class="text-white hover:text-yellow-300">Sobre</a>
+            <a href="/cliente/" class="text-white hover:text-yellow-300" th:text="#{cliente}">Cliente</a>
+            <a href="/publicos/painelLocadora" class="text-white hover:text-yellow-300" th:text="#{locadoras}">Locadora</a>
+            <a href="/admin/" class="text-white hover:text-yellow-300" th:text="#{admin}">Administrador</a>
+            <a href="/publicos/sobre" class="text-white hover:text-yellow-300" th:text="#{sobre}">Sobre</a>
         </div>
     </nav>
 
@@ -45,7 +45,7 @@
                 <p class="text-lg text-black font-semibold mb-4">
                     Explore and manage your bike rentals easily. Our platform provides a user-friendly interface for clients, rental companies, and administrators.
                 </p>
-                <a href="/publicos/cliente/cadastro" class="text-lg text-blue-600 hover:text-yellow-400 font-semibold transition duration-300 ease-in-out">
+                <a href="/publicos/cliente/cadastro" class="text-lg text-blue-600 hover:text-yellow-400 font-semibold transition duration-300 ease-in-out" th:text="#{cadastroJa}">
                     Faça já seu cadastro!
                 </a>
             </div>

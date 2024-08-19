@@ -39,15 +39,16 @@
   <body>
     <div class="flex justify-center items-center h-screen">
       <div class="max-w-4xl w-full p-8 bg-white rounded shadow-lg text-center">
-        <h2 class="text-2xl font-bold text-gray-800 mb-4">Lista de Locações</h2>
+        <h2 class="text-2xl font-bold text-gray-800 mb-4"th:text="#{locacao.lista}">Lista de Locações</h2>
 
         <!-- Check if listaLocacao is not empty -->
         <div th:if="${not #lists.isEmpty(locacao)}">
           <table class="w-full mx-auto">
             <thead>
               <tr class="bg-gray-100">
-                <th class="border border-gray-300 px-4 py-2">CPF Cliente</th>
-                <th class="border border-gray-300 px-4 py-2">Data</th>
+                <th class="border border-gray-300 px-4 py-2"th:text="#{locacao.cpf}">CPF Cliente</th>
+                <th class="border border-gray-300 px-4 py-2"th:text="#{data}">Data</th>
+                <th class="border border-gray-300 px-4 py-2" th:text="#{opcoes}">Opções</th>
                 <!--th class="border border-gray-300 px-4 py-2">Opções</th-->
               </tr>
             </thead>
@@ -89,6 +90,12 @@
         <hr class="my-4" />
 
         <div class="flex justify-around">
+          <a
+          href="/locadora/"
+          class="text-green-500 hover:underline"
+          th:text="#{voltarOpcoes}"
+          >Voltar as opções
+        </a> 
           <!-- TODO: fix links
                 <a th:href="@{/}" class="text-gray-500 hover:underline">Voltar à página inicial</a>
                 -->
