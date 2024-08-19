@@ -45,7 +45,7 @@ Instalação em sistemas linux ```sudo apt install maven```
 
 - <a href="https://miro.com/welcomeonboard/Nkx6aWFvUGtPNmdNelZ2U3ltWjA4aE1ocGphWlJ5UGRkVkJkSmRHd29uRW9Qc01GSEJwekJieUpTNE1Tb2VBN3wzNDU4NzY0NTkyMDM3NzQ1NDYxfDI=?share_link_id=795484433352">Diagrama UML</a>
 
-- <a href="#">Banco de dados</a>
+- <a href="https://raw.githubusercontent.com/Maracujacake/brr/main/shema.png">Banco de dados</a>
 
 ### Tecnologias Usadas
 <img src="https://img.shields.io/badge/Java-red?style=for-the-badge&logo=java"> <img src="https://img.shields.io/badge/Maven-grey?style=for-the-badge&logo=apache maven">
