@@ -57,6 +57,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/locacao/**").authenticated()
                         .requestMatchers("/locadoras/**").permitAll()
                         .requestMatchers("/clientes/**").permitAll()
+                        .requestMatchers("/locacoes/**").permitAll()
                         .anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin((form) -> form
