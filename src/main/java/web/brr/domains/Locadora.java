@@ -5,6 +5,8 @@ import java.util.Set;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,6 +31,7 @@ public class Locadora extends User {
     @Column(nullable = false, unique = true, length = 100)
     private String cnpj;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "locadora", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<Locacao> registrations = new HashSet<>();
 

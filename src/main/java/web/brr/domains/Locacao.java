@@ -2,6 +2,8 @@ package web.brr.domains;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,10 +18,12 @@ public class Locacao {
     Long id;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "cliente_id")
     Cliente cliente;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "locadora_id")
     Locadora locadora;
 

@@ -18,11 +18,11 @@ public class ClienteService implements ClienteServiceSpec {
     ClienteRep clienteDAO;
 
     public Cliente save(Cliente Cliente, Boolean update) {
+        Cliente.setRole("ROLE_CLIENTE");
         if (update)
             return clienteDAO.save(Cliente);
 
         Cliente.setSenha(EncryptPassword.encrypt(Cliente.getSenha()));
-        Cliente.setRole("ROLE_CLIENTE");
         return clienteDAO.save(Cliente);
     }
 

@@ -3,13 +3,18 @@ package web.brr.controllers.rest;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,10 +66,9 @@ public class ClientRestController {
         }
     }
 
-    @PostMapping(path = "/api/cliente")
+    @PostMapping(path = "/clientes")
     @ResponseBody
     public ResponseEntity<Cliente> cria(@RequestBody JSONObject json) {
-        System.out.println("AQUI");
         try {
             if (isJSONValid(json.toString())) {
                 Cliente cliente = new Cliente();
@@ -79,4 +83,59 @@ public class ClientRestController {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
         }
     }
+
+    @GetMapping(path = "/clientes")
+    @ResponseBody
+    public ResponseEntity<Iterable<Cliente>> lista() {
+        List<Cliente> clis = service.findAll();
+        if (clis.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(clis);
+    }
+
+    @GetMapping(path = "/clientes/{id}")
+    @ResponseBody
+    public ResponseEntity<Cliente> lista(@PathVariable("id") long id) {
+        Cliente cli = service.findById(id).orElse(null);
+        if (cli == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(cli);
+    }
+
+    @PutMapping(path = "/clientes/{id}")
+    @ResponseBody
+    public ResponseEntity<Cliente> atualiza(@PathVariable("id") long id, @RequestBody JSONObject json) {
+        try {
+            if (isJSONValid(json.toString())) {
+                Cliente cli = service.findById(id).orElse(null);
+                if (cli == null) {
+                    return ResponseEntity.notFound().build();
+                }
+                parse(cli, json);
+                service.save(cli, true);
+                return ResponseEntity.ok(cli);
+            } else {
+                return ResponseEntity.badRequest().body(null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
+        }
+    }
+
+    @DeleteMapping(path = "/clientes/{id}")
+    @ResponseBody
+    public ResponseEntity<Boolean> remove(@PathVariable("id") long id) {
+
+        Cliente cli = service.findById(id).orElse(null);
+        if (cli == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            service.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+    }
+
 }

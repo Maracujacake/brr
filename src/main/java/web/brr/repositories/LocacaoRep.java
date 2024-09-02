@@ -20,6 +20,7 @@ public interface LocacaoRep extends JpaRepository<Locacao, Long> {
 
     void deleteById(Long id);
 
+    
     List<Locacao> findAll();
 
     Optional<Locacao> findById(Long id);
