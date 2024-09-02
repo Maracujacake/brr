@@ -14,6 +14,8 @@ import java.util.Set;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "Cliente")
 @DynamicUpdate
@@ -36,6 +38,7 @@ public class Cliente extends User {
     @Column(nullable = false)
     private LocalDate dataNascimento;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL, orphanRemoval = true)
     Set<Locacao> registrations = new HashSet<>();
 
