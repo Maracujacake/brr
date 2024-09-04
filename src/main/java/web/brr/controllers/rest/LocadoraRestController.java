@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import web.brr.domains.Locadora;
 import web.brr.service.impl.LocadoraService;
+import web.brr.service.impl.ObjectValidatorService;
 
 @CrossOrigin
 @RestController
@@ -28,6 +29,9 @@ public class LocadoraRestController {
 
     @Autowired
     private LocadoraService service;
+
+
+    private ObjectValidatorService objectValidatorService = new ObjectValidatorService();
 
     private boolean isJSONValid(String jsonInString) {
         try {
@@ -37,7 +41,7 @@ public class LocadoraRestController {
         }
     }
 
-    private void parse(Locadora loc, JSONObject json) {
+    private List<String> parse(Locadora loc, JSONObject json) {
 
         Object id = json.get("id");
         if (id != null) {
@@ -51,20 +55,25 @@ public class LocadoraRestController {
         loc.setNome((String) json.get("nome"));
         loc.setSenha((String) json.get("senha"));
         loc.setEmail((String) json.get("email"));
-        loc.setRole((String) json.get("role"));
+        loc.setRole("ROLE_LOCADORA");
 
         loc.setCidade((String) json.get("cidade"));
         loc.setCnpj((String) json.get("cnpj"));
+
+        List<String> errors = objectValidatorService.validate(loc);
+        return errors;
     }
 
     @PostMapping(path = "/locadoras")
     @ResponseBody
-    public ResponseEntity<Locadora> cria(@RequestBody JSONObject json) {
-        System.out.println("AQUI");
+    public ResponseEntity<?> cria(@RequestBody JSONObject json) {
         try {
             if (isJSONValid(json.toString())) {
                 Locadora locadora = new Locadora();
-                parse(locadora, json);
+                List<String> errors = parse(locadora, json);
+                if(!errors.isEmpty()) {
+                    return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(errors.toString());
+                }
                 service.save(locadora, false);
                 return ResponseEntity.ok(locadora);
             } else {
@@ -97,14 +106,17 @@ public class LocadoraRestController {
 
     @PutMapping(path = "/locadoras/{id}")
     @ResponseBody
-    public ResponseEntity<Locadora> atualiza(@PathVariable("id") long id, @RequestBody JSONObject json) {
+    public ResponseEntity<?> atualiza(@PathVariable("id") long id, @RequestBody JSONObject json) {
         try {
             if (isJSONValid(json.toString())) {
                 Locadora loc = service.findById(id).orElse(null);
                 if (loc == null) {
                     return ResponseEntity.notFound().build();
                 }
-                parse(loc, json);
+                List<String> errors = parse(loc, json);
+                if(!errors.isEmpty()) {
+                    return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(errors.toString());
+                }
                 service.save(loc, true);
                 return ResponseEntity.ok(loc);
             } else {
