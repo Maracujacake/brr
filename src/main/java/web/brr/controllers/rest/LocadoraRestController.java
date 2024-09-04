@@ -1,8 +1,6 @@
 package web.brr.controllers.rest;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.json.simple.JSONObject;

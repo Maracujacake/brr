@@ -1,29 +1,21 @@
 package web.brr.controllers.rest;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import web.brr.domains.Cliente;
 import web.brr.domains.Locacao;
-import web.brr.domains.Locadora;
 import web.brr.service.impl.LocacaoService;
-import web.brr.service.impl.AdminService;
 
 
 @CrossOrigin
@@ -32,7 +24,6 @@ public class LocacaoRestController {
     
     @Autowired
     private LocacaoService service;
-    private AdminService adminService;
 
     // verificacao da requisicao JSON
     private boolean isJSONValid(String jsonInString) {
