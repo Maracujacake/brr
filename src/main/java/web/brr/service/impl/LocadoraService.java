@@ -18,6 +18,7 @@ public class LocadoraService implements LocadoraServiceSpec {
     private LocadoraRep locadoraRep;
 
     public Locadora save(Locadora locadora, Boolean update) {
+        locadora.setRole("ROLE_LOCADORA");
         if (update)
             return locadoraRep.save(locadora);
 
