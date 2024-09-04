@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import web.brr.domains.Cliente;
 import web.brr.service.impl.ClienteService;
+import web.brr.service.impl.ObjectValidatorService;
 
 @CrossOrigin
 @RestController
@@ -30,6 +31,9 @@ public class ClientRestController {
 
     @Autowired
     private ClienteService service;
+
+
+    private ObjectValidatorService objectValidatorService = new ObjectValidatorService();
 
     private boolean isJSONValid(String jsonInString) {
         try {
@@ -39,7 +43,7 @@ public class ClientRestController {
         }
     }
 
-    private void parse(Cliente cli, JSONObject json) {
+    private List<String> parse(Cliente cli, JSONObject json) {
 
         Object id = json.get("id");
         if (id != null) {
@@ -53,7 +57,7 @@ public class ClientRestController {
         cli.setNome((String) json.get("nome"));
         cli.setSenha((String) json.get("senha"));
         cli.setEmail((String) json.get("email"));
-        cli.setRole((String) json.get("role"));
+        cli.setRole("ROLE_CLIENTE");
 
         cli.setTelefone((String) json.get("telefone"));
         cli.setSexo(((String) json.get("sexo")).charAt(0));
@@ -64,15 +68,22 @@ public class ClientRestController {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             cli.setDataNascimento(LocalDate.parse((String) dataNascimento, formatter));
         }
+        List<String> errors = objectValidatorService.validate(cli);
+        return errors;
+
     }
 
     @PostMapping(path = "/clientes")
     @ResponseBody
-    public ResponseEntity<Cliente> cria(@RequestBody JSONObject json) {
+    public ResponseEntity<?> cria(@RequestBody JSONObject json) {
         try {
             if (isJSONValid(json.toString())) {
                 Cliente cliente = new Cliente();
-                parse(cliente, json);
+                List<String> errors = parse(cliente, json);
+                if(!errors.isEmpty()) {
+                    return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(errors.toString());
+                }
+
                 service.save(cliente, false);
                 return ResponseEntity.ok(cliente);
             } else {
@@ -106,14 +117,18 @@ public class ClientRestController {
 
     @PutMapping(path = "/clientes/{id}")
     @ResponseBody
-    public ResponseEntity<Cliente> atualiza(@PathVariable("id") long id, @RequestBody JSONObject json) {
+    public ResponseEntity<?> atualiza(@PathVariable("id") long id, @RequestBody JSONObject json) {
         try {
             if (isJSONValid(json.toString())) {
                 Cliente cli = service.findById(id).orElse(null);
                 if (cli == null) {
                     return ResponseEntity.notFound().build();
                 }
-                parse(cli, json);
+            
+                List<String> errors = parse(cli, json);
+                if(!errors.isEmpty()) {
+                    return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(errors.toString());
+                }
                 service.save(cli, true);
                 return ResponseEntity.ok(cli);
             } else {
