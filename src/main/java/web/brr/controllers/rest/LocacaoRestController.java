@@ -171,7 +171,7 @@ public class LocacaoRestController {
 
 
     // cria locacao (corpo do JSON: idCliente, idLocadora, data)
-    @PostMapping(path = "/locacoes/cria")
+    @PostMapping(path = "/locacoes")
     @ResponseBody
     public ResponseEntity<?> cria(@RequestBody JSONObject json) {
         try {
@@ -181,7 +181,13 @@ public class LocacaoRestController {
                 if(!errors.isEmpty()) {
                     return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(errors.toString());
                 }
-
+                List<Locacao> locacoes = service.findLocacaoClienteByDate(locacao.getRegisteredAt(),
+                        locacao.getCliente().getId().toString());
+                locacoes.addAll(service.findLocacaoLocadoraByDate(locacao.getRegisteredAt(),
+                        locacao.getLocadora().getId().toString()));
+                if (!locacoes.isEmpty()) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Já existe uma locação para essa data");
+                }
                 service.save(locacao);
                 return ResponseEntity.ok(locacao);
             } else {
@@ -196,7 +202,7 @@ public class LocacaoRestController {
 
 
     // atualiza locacao (corpo do JSON: data)
-    @PutMapping(path = "/locacoes/atualiza/{id}")
+    @PutMapping(path = "/locacoes/{id}")
     @ResponseBody
     public ResponseEntity<?> atualiza(@PathVariable("id") long id, @RequestBody JSONObject json) {
         try {
@@ -205,10 +211,17 @@ public class LocacaoRestController {
                 if (locacao == null) {
                     return ResponseEntity.notFound().build();
                 }
-            
                 List<String> errors = parseUpdate(locacao, json);
                 if(!errors.isEmpty()) {
                     return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(errors.toString());
+                }
+
+                List<Locacao> locacoes = service.findLocacaoClienteByDate(locacao.getRegisteredAt(),
+                        locacao.getCliente().getId().toString());
+                locacoes.addAll(service.findLocacaoLocadoraByDate(locacao.getRegisteredAt(),
+                        locacao.getLocadora().getId().toString()));
+                if (!locacoes.isEmpty()) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Já existe uma locação para essa data");
                 }
                 service.save(locacao);
                 return ResponseEntity.ok(locacao);

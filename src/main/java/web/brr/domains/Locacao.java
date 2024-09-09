@@ -45,6 +45,14 @@ public class Locacao {
         this.cliente = cliente;
     }
 
+    public Long getClienteId() {
+        return cliente != null ? cliente.getId() : null;
+    }
+
+    public Long getLocadoraId() {
+        return locadora != null ? locadora.getId() : null;
+    }
+
     public Locadora getLocadora() {
         return locadora;
     }
