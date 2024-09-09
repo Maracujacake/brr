@@ -30,7 +30,6 @@ public class LocadoraRestController {
     @Autowired
     private LocadoraService service;
 
-
     private ObjectValidatorService objectValidatorService = new ObjectValidatorService();
 
     private boolean isJSONValid(String jsonInString) {
@@ -71,7 +70,7 @@ public class LocadoraRestController {
             if (isJSONValid(json.toString())) {
                 Locadora locadora = new Locadora();
                 List<String> errors = parse(locadora, json);
-                if(!errors.isEmpty()) {
+                if (!errors.isEmpty()) {
                     return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(errors.toString());
                 }
                 service.save(locadora, false);
@@ -84,6 +83,7 @@ public class LocadoraRestController {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
         }
     }
+
     @GetMapping(path = "/locadoras")
     @ResponseBody
     public ResponseEntity<Iterable<Locadora>> lista() {
@@ -104,6 +104,16 @@ public class LocadoraRestController {
         return ResponseEntity.ok(loc);
     }
 
+    @GetMapping(path = "/locadoras/cidades/{nome}")
+    @ResponseBody
+    public ResponseEntity<Iterable<Locadora>> lista(@PathVariable("nome") String nome) {
+        List<Locadora> loc = service.findByCidade(nome);
+        if (loc.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(loc);
+    }
+
     @PutMapping(path = "/locadoras/{id}")
     @ResponseBody
     public ResponseEntity<?> atualiza(@PathVariable("id") long id, @RequestBody JSONObject json) {
@@ -114,7 +124,7 @@ public class LocadoraRestController {
                     return ResponseEntity.notFound().build();
                 }
                 List<String> errors = parse(loc, json);
-                if(!errors.isEmpty()) {
+                if (!errors.isEmpty()) {
                     return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(errors.toString());
                 }
                 service.save(loc, true);
@@ -142,4 +152,3 @@ public class LocadoraRestController {
     }
 
 }
-
